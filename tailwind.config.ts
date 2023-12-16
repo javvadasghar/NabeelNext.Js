@@ -13,6 +13,7 @@ const config: Config = {
         dark: "#0D0E0E",
         "dark-2": "#111111",
         "bright-green": "#03F719",
+        "dark-green": "#6CBC45",
         "bright-yellow": "#DDFD00",
       },
     },
