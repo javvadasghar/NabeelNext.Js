@@ -1,22 +1,19 @@
-import {
-  TextInput as FTextInput,
-  TextInputProps as FTextInputProps,
-} from "flowbite-react";
+import { Textarea, TextareaProps } from "flowbite-react";
 import { FC } from "react";
 import { twMerge } from "tailwind-merge";
 
-export interface TextInputProps extends FTextInputProps {
+export interface TextAreaProps extends TextareaProps {
   label?: string;
   vertical?: boolean;
   containerClassName?: string;
   labelClassName?: string;
 }
 
-const TextInput: FC<TextInputProps> = ({
-  label,
-  vertical = false,
+const TextArea: FC<TextAreaProps> = ({
+  vertical,
   containerClassName,
   labelClassName,
+  label,
   style,
   ...props
 }) => {
@@ -37,18 +34,17 @@ const TextInput: FC<TextInputProps> = ({
       >
         {label}
       </label>
-
-      <FTextInput
+      <Textarea
         style={{
           borderRadius: 0,
           borderWidth: 0,
+          height: "100px",
           ...style,
         }}
-        className="w-[300px]"
         {...props}
       />
     </div>
   );
 };
 
-export default TextInput;
+export default TextArea;
