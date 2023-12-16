@@ -2,7 +2,7 @@ import TextInput from "@/components/Form/TextInput";
 import Image from "next/image";
 import { FC } from "react";
 
-const Page1: FC = () => {
+const SignIn: FC = () => {
   return (
     <div className="p-4 flex flex-col gap-[100px]">
       <div className="bg-black border-2 border-bright-green p-2">
@@ -22,7 +22,7 @@ const Page1: FC = () => {
         </div>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex justify-center mb-[100px]">
         <div className="border-2 border-bright-green bg-black rounded-[50%] px-[200px] py-[10px] text-center flex flex-col items-center">
           <div className="italic text-[24px] font-bold">Not a Member ?</div>
           <div className="italic text-[24px] font-bold">
@@ -44,4 +44,4 @@ const Page1: FC = () => {
   );
 };
 
-export default Page1;
+export default SignIn;
