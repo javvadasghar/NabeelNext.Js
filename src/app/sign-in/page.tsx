@@ -11,8 +11,8 @@ const SignIn: FC = () => {
         </div>
 
         <div className="flex gap-4 mb-6">
-          <TextInput label="USERNAME:" />
-          <TextInput label="PASSWORD:" />
+          <TextInput label="USERNAME:" className="w-full" />
+          <TextInput label="PASSWORD:" type="password" className="w-full" />
         </div>
 
         <div className="flex justify-center mb-6">

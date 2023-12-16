@@ -20,7 +20,7 @@ const TextInput: FC<TextInputProps> = ({ label, ...props }) => {
           borderRadius: 0,
           borderWidth: 0,
         }}
-        className="w-full"
+        className="w-[300px]"
         {...props}
       />
     </div>
