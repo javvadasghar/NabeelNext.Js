@@ -15,9 +15,17 @@ const SignIn: FC = () => {
           <TextInput label="PASSWORD:" type="password" className="w-full" />
         </div>
 
-        <div className="flex justify-center mb-6">
-          <div className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic">
-            Forgot Your Password or Username?
+        <div className="flex justify-center gap-8 mb-6">
+          <div className="flex justify-center">
+            <div className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic">
+              Sign in
+            </div>
+          </div>
+
+          <div className="flex justify-center">
+            <div className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic">
+              Forgot Your Password or Username?
+            </div>
           </div>
         </div>
       </div>
