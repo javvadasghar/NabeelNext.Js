@@ -1,6 +1,8 @@
 import TextInput from "@/components/Form/TextInput";
 import { FC } from "react";
 
+// ADMIN PAGE
+
 const SignInAdmin: FC = () => {
   return (
     <div className="p-4 flex flex-col gap-[100px]">

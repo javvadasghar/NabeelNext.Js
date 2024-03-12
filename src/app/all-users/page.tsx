@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { FC } from "react";
 
+// ADMIN PAGE
+
 const users = [
   {
     id: "0",

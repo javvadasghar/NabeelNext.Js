@@ -1,6 +1,6 @@
+import { cn } from "@/utils/tailwindMerge";
 import { Textarea, TextareaProps } from "flowbite-react";
 import { FC } from "react";
-import { twMerge } from "tailwind-merge";
 
 export interface TextAreaProps extends TextareaProps {
   label?: string;
@@ -19,13 +19,13 @@ const TextArea: FC<TextAreaProps> = ({
 }) => {
   return (
     <div
-      className={twMerge(
+      className={cn(
         `flex flex-1 gap-2 ${vertical ? "flex-col" : "flex-row"}`,
         containerClassName
       )}
     >
       <label
-        className={twMerge(
+        className={cn(
           `flex font-bold text-[24px] italic ${
             vertical ? "self-start" : "self-end"
           }`,

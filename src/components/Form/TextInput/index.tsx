@@ -1,9 +1,9 @@
+import { cn } from "@/utils/tailwindMerge";
 import {
   TextInput as FTextInput,
   TextInputProps as FTextInputProps,
 } from "flowbite-react";
 import { FC } from "react";
-import { twMerge } from "tailwind-merge";
 
 export interface TextInputProps extends FTextInputProps {
   label?: string;
@@ -22,13 +22,13 @@ const TextInput: FC<TextInputProps> = ({
 }) => {
   return (
     <div
-      className={twMerge(
+      className={cn(
         `flex flex-1 gap-2 ${vertical ? "flex-col" : "flex-row"}`,
         containerClassName
       )}
     >
       <label
-        className={twMerge(
+        className={cn(
           `flex font-bold text-[24px] italic ${
             vertical ? "self-start" : "self-end"
           }`,

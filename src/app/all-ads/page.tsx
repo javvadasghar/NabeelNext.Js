@@ -1,6 +1,7 @@
-import AdSpace from "@/app/(home)/components/AdSpace";
 import Image from "next/image";
 import { FC } from "react";
+
+// ADMIN PAGE
 
 const AllAds: FC = () => {
   return (

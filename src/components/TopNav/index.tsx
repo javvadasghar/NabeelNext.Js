@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
-const role = "admin";
+const role = "client";
 
 const TopNav: FC = () => {
   return (

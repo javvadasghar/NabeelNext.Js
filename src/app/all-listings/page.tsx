@@ -1,6 +1,8 @@
 import ListingsAdmin from "@/components/ListingsAdmin";
 import { FC } from "react";
 
+// ADMIN PAGE
+
 const listings = [
   {
     id: "0",
