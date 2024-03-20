@@ -7,46 +7,44 @@ import { FC } from "react";
 
 export interface TextInputProps extends FTextInputProps {
   label?: string;
-  vertical?: boolean;
   containerClassName?: string;
   labelClassName?: string;
+  error?: string;
 }
 
 const TextInput: FC<TextInputProps> = ({
+  id,
   label,
-  vertical = false,
   containerClassName,
   labelClassName,
+  className,
+  error,
   style,
   ...props
 }) => {
   return (
-    <div
-      className={cn(
-        `flex flex-1 gap-2 ${vertical ? "flex-col" : "flex-row"}`,
-        containerClassName
-      )}
-    >
-      <label
-        className={cn(
-          `flex font-bold text-[24px] italic ${
-            vertical ? "self-start" : "self-end"
-          }`,
-          labelClassName
-        )}
-      >
-        {label}
-      </label>
+    <div className={cn(containerClassName)}>
+      <div className="flex flex-1 gap-2">
+        <label
+          className={cn("flex font-bold text-[24px] italic", labelClassName)}
+          htmlFor={id}
+        >
+          {label}
+        </label>
 
-      <FTextInput
-        style={{
-          borderRadius: 0,
-          borderWidth: 0,
-          ...style,
-        }}
-        className="w-[300px]"
-        {...props}
-      />
+        <FTextInput
+          style={{
+            borderRadius: 0,
+            borderWidth: 0,
+            ...style,
+          }}
+          className={cn("w-[300px]", className)}
+          id={id}
+          name={id}
+          {...props}
+        />
+      </div>
+      {Boolean(error) && <div className="text-red-500 mt-1">{error}</div>}
     </div>
   );
 };

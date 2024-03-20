@@ -15,7 +15,7 @@ const Home: FC = () => {
             FREE to Join & FREE to Use . . .
           </div>
 
-          <div className="text-center bg-black border-2 border-bright-green rounded-[50%] px-[100px] py-[6px]">
+          <div className="text-center bg-black border-2 border-bright-green rounded-[50%] px-[100px] py-[6px] cursor-pointer">
             <div className="italic text-bright-green text-xl font-bold">
               How does it work ?
             </div>
@@ -24,7 +24,7 @@ const Home: FC = () => {
 
           <hr className="w-[600px] bg-white" />
 
-          <div className="text-center bg-black border-2 border-bright-yellow rounded-[50%] px-[100px] py-[10px]">
+          <div className="text-center bg-black border-2 border-bright-yellow rounded-[50%] px-[100px] py-[10px] cursor-pointer">
             <div className="italic text-bright-yellow text-xl font-bold">
               - CLICK HERE -
             </div>

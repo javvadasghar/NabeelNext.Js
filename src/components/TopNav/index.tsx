@@ -42,20 +42,20 @@ const TopNav: FC = () => {
             </>
           ) : (
             <>
-              <Link href="#" className="italic font-bold">
+              <Link href="/" className="italic font-bold">
                 Home
               </Link>
-              <Link href="#" className="italic font-bold">
+              {/* <Link href="#" className="italic font-bold">
                 Back
-              </Link>
-              <Link href="#" className="italic font-bold">
+              </Link> */}
+              {/* <Link href="#" className="italic font-bold">
                 Categories
-              </Link>
-              <Link href="#" className="italic font-bold">
+              </Link> */}
+              {/* <Link href="#" className="italic font-bold">
                 Keyword Search
-              </Link>
+              </Link> */}
 
-              <Link href="#" className="flex gap-1">
+              <Link href="/sign-in" className="flex gap-1">
                 <Image
                   src="/images/avatar.png"
                   alt="avatar"
