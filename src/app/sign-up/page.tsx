@@ -14,7 +14,7 @@ const SignUp: FC = () => {
     zip: "",
     mailingAddress: ""
   });
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
