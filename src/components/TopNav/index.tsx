@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
-const role = "client";
+let role = "client";
 
 const TopNav: FC = () => {
   return (
@@ -17,7 +17,7 @@ const TopNav: FC = () => {
 
       <div className="flex flex-1 flex-col items-end justify-between">
         <nav className="flex bg-dark gap-12 items-center pt-4 pl-6 pr-12">
-          {role === "admin" ? (
+          {role == "admin" ? (
             <>
               <Link href="#" className="italic font-bold">
                 Users
