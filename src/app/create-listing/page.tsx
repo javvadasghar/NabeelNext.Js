@@ -18,7 +18,6 @@ const CreateListing: FC = () => {
     <form className="p-4 flex flex-col gap-2">
       <div>
         <TextInput
-          vertical
           label={`Listing Title`}
           containerClassName="gap-0"
           labelClassName="text-bright-green font-normal"
@@ -36,7 +35,6 @@ const CreateListing: FC = () => {
 
       <div>
         <TextArea
-          vertical
           label="Description"
           containerClassName="gap-0"
           labelClassName="text-bright-green font-normal"

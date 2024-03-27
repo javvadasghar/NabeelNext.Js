@@ -27,7 +27,6 @@ const Listing: FC<ListingProps> = ({
       <div className="flex gap-4">
         <div className="flex flex-1 flex-col gap-2">
           <TextInput
-            vertical
             label={`Listing #${index + 1} Title`}
             containerClassName="gap-0"
             labelClassName="text-bright-green font-normal"
@@ -45,7 +44,6 @@ const Listing: FC<ListingProps> = ({
 
           <div>
             <TextArea
-              vertical
               label="Description"
               containerClassName="gap-0"
               labelClassName="text-bright-green font-normal"
