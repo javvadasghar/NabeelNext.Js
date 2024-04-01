@@ -4,33 +4,48 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { useState } from "react";
+import { toast } from "sonner";
 import { FC } from "react";
 
 const SignIn: FC = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
+  const [ForgotError, setForgotError] = useState("");
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const SignInPostApi = "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/signin"
+    if (!username || !password) {
+      setError("Please enter both username and password.");
+      return;
+    }
+
+    const SignInPostApi =
+      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/signin";
     try {
       const response = await fetch(SignInPostApi, {
-        method: 'POST',
-        mode: 'cors',
+        method: "POST",
+        mode: "cors",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ username, password }),
       });
       if (!response.ok) {
-        throw new Error('Failed to sign in');
+        const responseData = await response.json();
+        setError(responseData.message);
+      } else {
+        toast.success("Signed in successfully!");
+        const data = await response.json();
+        const access_token = data?.data?.tokens?.access_token;
+        localStorage.setItem("accessToken", access_token);
+        window.location.href = "/";
       }
     } catch (error) {
-      setError('Failed to sign in. Please try again.');
+      // setError(error?.response?.data?.message);
     }
   };
 
@@ -45,65 +60,80 @@ const SignIn: FC = () => {
   const handleForgotPasswordSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      debugger;
       const response = await fetch(
         "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/forgotPassword",
         {
           method: "POST",
-          mode: 'cors',
+          mode: "cors",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email }),
         }
       );
-      debugger;
       if (!response.ok) {
-        debugger;
-        throw new Error("Failed to submit email for password reset.");
+        if (response?.statusText == "Forbidden") {
+          setForgotError("Email not Found");
+        }
+      } else {
+        toast.success("Email sent successfully!");
+        handleCloseModal();
       }
-      // If successful, you might want to show a success message to the user
-      console.log("Email submitted successfully:", email);
-      // Close the modal after submission
-      // handleCloseModal();
     } catch (error) {
-      console.error("Error submitting email for password reset:", error);
-      // Handle error gracefully, show error message to the user
+      // setForgotError(error?.response?.data?.message);
     }
   };
 
   return (
     <div className="p-4 flex flex-col gap-[100px]">
       <div className="bg-black border-2 border-bright-green p-2">
-      <form onSubmit={handleSubmit}>
-        <div className="text-center text-[30px] font-bold italic tracking-wider mb-4">
-          - MEMBER SIGN IN -
-        </div>
-
-        <div className="flex gap-4 mb-6">
-          <TextInput label="USERNAME:"  value={username} onChange={(e) => setUsername(e.target.value)}   className="w-full" />
-          <TextInput label="PASSWORD:" type="password" value={password}  onChange={(e) => setPassword(e.target.value)}   className="w-full" />
-        </div>
-
-        <div className="flex justify-center gap-8 mb-6">
-          <div className="flex justify-center">
-            <button type="submit" className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic">
-              Sign in
-            </button>
+        <form onSubmit={handleSubmit}>
+          <div className="text-center text-[30px] font-bold italic tracking-wider mb-4">
+            - MEMBER SIGN IN -
           </div>
 
-          <div className="flex justify-center">
-            <button className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic"
-            onClick={handleForgotPasswordClick}>
-              Forgot Your Password or Username?
-            </button>
+          <div className="flex gap-4 mb-6">
+            <TextInput
+              label="USERNAME:"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              className="w-full"
+            />
+            <TextInput
+              label="PASSWORD:"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full"
+            />
           </div>
-        </div>
+
+          {error && <div className="text-red-500">{error}</div>}
+
+          <div className="flex justify-center gap-8 mb-6">
+            <div className="flex justify-center">
+              <button
+                type="submit"
+                className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic"
+              >
+                Sign in
+              </button>
+            </div>
+
+            <div className="flex justify-center">
+              <button
+                className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic"
+                onClick={handleForgotPasswordClick}
+              >
+                Forgot Your Password or Username?
+              </button>
+            </div>
+          </div>
         </form>
       </div>
 
-       {/* Modal */}
-       {showModal && (
+      {/* Modal */}
+      {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-black border-2 border-bright-green p-2">
             <h2 className="text-2xl font-bold mb-4">Forgot Password</h2>
@@ -115,6 +145,7 @@ const SignIn: FC = () => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
               />
+              {ForgotError && <div className="text-red-500">{ForgotError}</div>}
               <div className="mt-4 gap-4 flex justify-end">
                 <button
                   type="button"

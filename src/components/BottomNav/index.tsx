@@ -1,8 +1,21 @@
+"use client";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
-const BottomNav: FC = () => {
+interface BottomNavProps {
+  onFaqClick: () => void;
+  onContactUsClick: () => void;
+  onTermsofUseClick: () => void;
+  onPrivacyPolicyClick: () => void;
+}
+
+const BottomNav: FC<BottomNavProps> = ({
+  onFaqClick,
+  onContactUsClick,
+  onTermsofUseClick,
+  onPrivacyPolicyClick,
+}) => {
   return (
     <footer className="flex bg-dark-2 px-10 pb-10 pt-4 border-t-2 border-t-black">
       <Image
@@ -33,9 +46,9 @@ const BottomNav: FC = () => {
         <Link href="#" className="font-bold">
           Terms of Service
         </Link>
-        <Link href="#" className="font-bold">
+        <button onClick={onPrivacyPolicyClick} className="font-bold">
           Privacy Policy
-        </Link>
+        </button>
       </div>
 
       <div className="flex flex-1 flex-col items-start gap-3">
@@ -49,15 +62,15 @@ const BottomNav: FC = () => {
           />
         </div>
 
-        <Link href="#" className="font-bold">
+        <button onClick={onFaqClick} className="font-bold">
           FAQ
-        </Link>
-        <Link href="#" className="font-bold">
-          Terms and Conditions
-        </Link>
-        <Link href="#" className="font-bold">
+        </button>
+        <button onClick={onTermsofUseClick} className="font-bold">
+          Terms of Use
+        </button>
+        <button onClick={onContactUsClick} className="font-bold">
           Contact Us
-        </Link>
+        </button>
       </div>
     </footer>
   );

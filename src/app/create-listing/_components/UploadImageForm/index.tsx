@@ -8,7 +8,9 @@ const MAX_FILE_SIZE = 5120; // 5MB
 const MAX_HEIGHT = 1000;
 const MAX_WIDTH = 1000;
 
-const UploadImageForm: FC = () => {
+const UploadImageForm: FC<{
+  onPdfImageChange: (base64data: string) => void;
+}> = ({ onPdfImageChange }) => {
   const [image, setImage] = useState<File | null>(null);
 
   const imageInputRef = useRef<HTMLInputElement>(null);
@@ -56,6 +58,15 @@ const UploadImageForm: FC = () => {
       if (event.target.files && event.target.files[0]) {
         const img = event.target.files[0];
 
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          const base64data = reader.result?.toString();
+          if (base64data) {
+            onPdfImageChange(base64data);
+          }
+        };
+        reader.readAsDataURL(img);
+
         const isImageSizeBigger = checkImageSize(img);
         if (isImageSizeBigger) {
           toast.error(`Image should not be greater than 5 MB`);
@@ -73,7 +84,7 @@ const UploadImageForm: FC = () => {
         setImage(img);
       }
     },
-    [checkImageDimensions, checkImageSize]
+    [onPdfImageChange]
   );
   return (
     <div className="flex items-center justify-center">

@@ -1,10 +1,42 @@
 import Image from "next/image";
 import Link from "next/link";
-import { FC } from "react";
-
-let role = "client";
+import { FC, useEffect, useState } from "react";
+// let role = "client";
 
 const TopNav: FC = () => {
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      setRole("user");
+    }
+  }, []);
+  const [role, setRole] = useState("client");
+
+  const handleLogout = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("Access token not found");
+        return;
+      }
+      const response = await fetch(
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/logout",
+        {
+          method: "POST",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.ok) {
+        localStorage.clear();
+        window.location.href = "/sign-in";
+      }
+    } catch (error) {}
+  };
   return (
     <header className="bg-grey flex justify-between pl-8 border-b-2 border-b-black">
       <Image
@@ -54,17 +86,22 @@ const TopNav: FC = () => {
               {/* <Link href="#" className="italic font-bold">
                 Keyword Search
               </Link> */}
-
-              <Link href="/sign-in" className="flex gap-1">
-                <Image
-                  src="/images/avatar.png"
-                  alt="avatar"
-                  width={20}
-                  height={20}
-                  className="object-contain"
-                />
-                <div className="w-[80px] font-bold">Sign In / Sign Up</div>
-              </Link>
+              {role === "user" ? (
+                <button onClick={handleLogout} className="w-[80px] font-bold">
+                  Log out
+                </button>
+              ) : (
+                <Link href="/sign-in" className="flex gap-1">
+                  <Image
+                    src="/images/avatar.png"
+                    alt="avatar"
+                    width={20}
+                    height={20}
+                    className="object-contain"
+                  />
+                  <div className="w-[80px] font-bold">Sign In / Sign Up</div>
+                </Link>
+              )}
             </>
           )}
         </nav>

@@ -1,17 +1,63 @@
-import React, { FC } from "react";
+"use client";
+import React, { FC, useState } from "react";
 import BottomNav from "../BottomNav";
 import TopNav from "../TopNav";
+import ContactUs from "@/app/footer/contactus";
+import Faqs from "@/app/footer/faq";
+import PrivacyPolicy from "@/app/footer/privacypolicy";
+import TermsofUse from "@/app/footer/termsofuse";
 
 export interface AppContainerProps {
   children: React.ReactNode;
 }
 
 const AppContainer: FC<AppContainerProps> = ({ children }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState<React.ReactNode | null>(
+    null
+  );
+  const handleFaqClick = () => {
+    setShowModal(true);
+    setModalContent(<Faqs />);
+  };
+
+  const handleContactUsClick = () => {
+    setShowModal(true);
+    setModalContent(<ContactUs />);
+  };
+
+  const handlePrivacyPolicyClick = () => {
+    setShowModal(true);
+    setModalContent(<PrivacyPolicy />);
+  };
+
+  const handleTermsofUseClick = () => {
+    setShowModal(true);
+    setModalContent(<TermsofUse />);
+  };
   return (
     <div className="flex flex-col h-screen relative">
       <TopNav />
       <div className="flex flex-1 flex-col">{children}</div>
-      <BottomNav />
+      <BottomNav
+        onFaqClick={handleFaqClick}
+        onContactUsClick={handleContactUsClick}
+        onPrivacyPolicyClick={handlePrivacyPolicyClick}
+        onTermsofUseClick={handleTermsofUseClick}
+      />
+      {showModal && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="p-4 rounded-lg">
+            <button
+              className="bg-dark-green text-black rounded-[50%] px-[10px] py-[10px] font-bold text-[12px] bold flex justify-end"
+              onClick={() => setShowModal(false)}
+            >
+              X
+            </button>
+            {modalContent}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
