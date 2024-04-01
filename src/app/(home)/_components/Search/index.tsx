@@ -67,7 +67,7 @@ const Search: FC = () => {
           </div>
         )}
         onChange={(event) => {
-          const selectedValue = event?.target?.value;
+          const selectedValue = (event.target as HTMLInputElement).value
           setSelectedCategory(selectedValue);
         }}
       >
