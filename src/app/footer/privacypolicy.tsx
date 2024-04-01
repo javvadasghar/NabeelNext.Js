@@ -30,15 +30,14 @@ const PrivacyPolicy: FC = () => {
       `}</style>
       <>
         <div className="font-bold mb-1">
-          &ldquo;I Want It . . .You Got It?&rdquo; Privacy Policy (updated
-          November 1, 2023)
+          &ldquo;I Want It . . .You Got It?&rdquo; Privacy Policy (updated November 1, 2023){" "}
         </div>
         <div>
           This policy details how data about you is used when you access our
           websites and services, including via our mobile applications
-          (together, &quot;IWI&quot;) or interact with us. If we update it, we
-          will revise the date, place notices on IWI if changes are material,
-          and/or obtain your consent as required by law.
+          (together, &quot;IWI&quot;) or interact with us. If we update it, we will revise
+          the date, place notices on IWI if changes are material, and/or obtain
+          your consent as required by law.
         </div>
         <div className="bg-dark-green text-black font-bold w-fit my-2">
           1. Protecting your Privacy
@@ -75,9 +74,9 @@ const PrivacyPolicy: FC = () => {
         Below is a list of all the types of data we have collected in the last
         12 months, where we got it, why we collected it and the categories of
         third parties to whom we disclosed it. We do not sell your data to third
-        parties. Please note that disclosure to &ldquo;Payment Processors&rdquo;
-        applies when you pay for an IWI listed item under the terms and
-        conditions of PayPal.
+        parties. Please note that disclosure to &ldquo;Payment Processors&rdquo; applies
+        when you pay for an IWI listed item under the terms and conditions of
+        PayPal.
         <br />
         <br />
         <table>

@@ -120,8 +120,8 @@ const Faqs: FC = () => {
           </li>
           <li>
             {" "}
-            prescription drugs, medical devices; controlled substances and
-            related items
+            prescription drugs, medical devices; controlled substances and related
+            items
           </li>
           <li>
             {" "}
@@ -130,18 +130,18 @@ const Faqs: FC = () => {
           <li> pet sales, animal parts, stud service</li>
           <li>
             {" "}
-            endangered, imperiled and/or protected species and any parts
-            thereof, e.g. ivory
+            endangered, imperiled and/or protected species and any parts thereof,
+            e.g. ivory
           </li>
           <li>
             {" "}
-            false, misleading, deceptive, or fraudulent content; bait and
-            switch; keyword spam
+            false, misleading, deceptive, or fraudulent content; bait and switch;
+            keyword spam
           </li>
           <li>
             {" "}
-            offensive, obscene, defamatory, threatening, or malicious postings
-            or email
+            offensive, obscene, defamatory, threatening, or malicious postings or
+            email
           </li>
           <li>
             {" "}
@@ -150,13 +150,12 @@ const Faqs: FC = () => {
           </li>
           <li>
             {" "}
-            food stamps, WIC vouchers, SNAP or WIC goods, governmental
-            assistance
+            food stamps, WIC vouchers, SNAP or WIC goods, governmental assistance
           </li>
           <li>
             {" "}
-            stolen property, property with serial number removed/altered,
-            burglary tools, etc
+            stolen property, property with serial number removed/altered, burglary
+            tools, etc
           </li>
           <li>
             {" "}
@@ -165,8 +164,8 @@ const Faqs: FC = () => {
           </li>
           <li>
             {" "}
-            US military items not demilitarized in accord with Defense
-            Department policy
+            US military items not demilitarized in accord with Defense Department
+            policy
           </li>
           <li>
             {" "}
@@ -181,8 +180,8 @@ const Faqs: FC = () => {
           <li> spam; miscategorized, overposted content</li>
           <li>
             {" "}
-            postings or email the primary purpose of which is to drive traffic
-            to a website
+            postings or email the primary purpose of which is to drive traffic to
+            a website
           </li>
           <li>
             {" "}
@@ -196,8 +195,8 @@ const Faqs: FC = () => {
           </li>
           <li>
             {" "}
-            any good, service, or content that violates the law or legal rights
-            of others
+            any good, service, or content that violates the law or legal rights of
+            others
           </li>
         </ul>
         <div>
