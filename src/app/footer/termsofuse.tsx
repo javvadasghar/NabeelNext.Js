@@ -16,9 +16,7 @@ const TermsofUse: FC = () => {
         }
       `}</style>
       <>
-        {" "}
         <div className="font-bold mb-1">
-          {" "}
           Welcome to I WANT IT . . . YOU GOT IT ?{" "}
         </div>
         <div>
