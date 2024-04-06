@@ -5,7 +5,7 @@ import ListingAdmin, {
 } from "../../../components/ListingAdmin";
 
 // ADMIN PAGE
-export interface SearchProps {
+interface SearchProps {
   searchhh: Array<Omit<ListingAdminProps, "index">>; // Define props interface
 }
 
