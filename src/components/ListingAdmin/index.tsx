@@ -1,8 +1,9 @@
 import Image from "next/image";
 import { FC } from "react";
-
+import TextInput from "../Form/TextInput";
+import TextArea from "../Form/TextArea";
 export interface ListingAdminItem {
-  image: string;
+  featuredImage: string;
   title: string;
   description: string;
 }
@@ -12,24 +13,56 @@ export interface ListingAdminProps extends ListingAdminItem {
   index: number;
 }
 
-const ListingAdmin: FC<ListingAdminProps> = ({ image, title, description }) => {
+const ListingAdmin: FC<ListingAdminProps> = ({
+  id,
+  title,
+  description,
+  featuredImage,
+  index,
+}) => {
+  debugger;
   return (
     <div className="mt-6">
-      <div className="flex gap-5 items-center">
-        <Image src={image} alt="listing" width={100} height={180} />
+      <div className="flex gap-4">
+        <div className="flex flex-1 flex-col gap-2">
+          <TextInput
+            label={`Listing #${index + 1} Title`}
+            containerClassName="gap-0"
+            labelClassName="text-bright-green font-normal"
+            className="w-full"
+            value={title}
+            style={{
+              padding: 0,
+              paddingTop: "2px",
+              paddingBottom: "2px",
+              fontSize: "24px",
+              fontWeight: "bold",
+              fontStyle: "italic",
+            }}
+          />
 
-        <div>
-          <div className="text-[24px] italic text-bright-green">
-            <span className="font-bold">Title: </span>
-            {title}
-          </div>
-          <div className="text-[24px] italic text-bright-green">
-            <span className="font-bold">Description: </span>
-            {description}
+          <div>
+            <TextArea
+              label="Description"
+              containerClassName="gap-0"
+              labelClassName="text-bright-green font-normal"
+              className="w-full"
+              value={description}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                fontSize: "16px",
+                fontStyle: "italic",
+              }}
+            />
           </div>
         </div>
-
-        <div className="bg-red-800 rounded-[50%] px-[20px] py-[10px] flex flex-col items-center">
+        <div className="text-center flex flex-col items-center">
+          <label className="text-bright-green italic text-[24px]">Photo</label>
+          <Image src={featuredImage} alt="listing" width={100} height={180} />
+        </div>
+        <div className="flex flex-col gap-4 items-center justify-center">
           <div className="text-center text-bright-green italic font-bold">
             Delete Image
           </div>
@@ -40,9 +73,6 @@ const ListingAdmin: FC<ListingAdminProps> = ({ image, title, description }) => {
             width={100}
             height={40}
           />
-        </div>
-
-        <div className="bg-red-800 rounded-[50%] px-[20px] py-[10px] flex flex-col items-center">
           <div className="text-center text-bright-green italic font-bold">
             Delete Listing
           </div>

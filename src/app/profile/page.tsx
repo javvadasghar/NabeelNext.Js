@@ -56,10 +56,13 @@ const Profile: FC = () => {
     <div className="p-4">
       <div className="bg-black border-2 border-bright-green p-2">
         <div className="flex gap-4 justify-center py-[30px]">
-          <div className="text-center border-2 border-bright-green rounded-[50%] px-[70px] py-[12px]">
+          <Link
+            href="/user-listing"
+            className="text-center border-2 border-bright-green rounded-[50%] px-[70px] py-[12px]"
+          >
             <div className="italic text-[24px] font-bold leading-3">Go to</div>
             <div className="italic text-[24px] font-bold">My Listings</div>
-          </div>
+          </Link>
 
           <Link
             href="/saved-listings"

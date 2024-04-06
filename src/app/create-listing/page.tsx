@@ -5,11 +5,12 @@ import TextInput from "@/components/Form/TextInput";
 import { categories } from "@/utils/categories";
 import { cn } from "@/utils/tailwindMerge";
 import { FC, useCallback, useState } from "react";
+import axios from "axios";
 import { toast } from "sonner";
 import UploadImageForm from "./_components/UploadImageForm";
 
 const CreateListing: FC = () => {
-  const [pdfImage, setPdfImage] = useState<string>("");
+  const [pdfImage, setPdfImage] = useState<File | null>(null);
   const [selectedCategory, setSelectedCategory] = useState("");
   const [title, setTitle] = useState("");
   const [error, setError] = useState("");
@@ -19,11 +20,11 @@ const CreateListing: FC = () => {
     setSelectedCategory(cat);
   }, []);
 
-  const handlePdfImageChange = useCallback((base64data: string) => {
-    setPdfImage(base64data);
+  const handlePdfImageChange = useCallback((files: File) => {
+    setPdfImage(files);
   }, []);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault();
 
     try {
@@ -32,31 +33,45 @@ const CreateListing: FC = () => {
         console.error("Access token not found");
         return;
       }
-      const response = await fetch(
+
+      const formData = new FormData();
+      formData.append("title", title);
+      formData.append("description", description);
+      formData.append("price", "222");
+      formData.append("category", selectedCategory);
+      if (pdfImage) {
+        formData.append("featuredImage", pdfImage);
+      }
+      const response = await axios.post(
         "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/createlisting",
+        formData,
         {
-          method: "POST",
-          mode: "cors",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${accessToken}`,
           },
-          body: JSON.stringify({
-            title,
-            description,
-            category: selectedCategory,
-            price: "222",
-            pdfImage,
-          }),
         }
       );
-      if (!response.ok) {
-        const responseData = await response.json();
-        setError(responseData.message);
-      } else {
+      if (response.status === 201) {
         toast.success("Listing created successfully");
+      } else {
       }
-    } catch (error) {}
+    } catch (error) {
+      if (error && error.response) {
+        const responseData = error.response.data;
+        if (
+          responseData.message ===
+          "Not Found. Please make sure you on-boarded your paypal with our platform"
+        ) {
+          window.location.href = "/onboard";
+        } else {
+          setError(responseData.message);
+        }
+      } else {
+        setError("An unexpected error occurred. Please try again later.");
+      }
+      console.error("Error creating listing:", error);
+    }
   };
 
   return (
@@ -104,7 +119,6 @@ const CreateListing: FC = () => {
         </label>
         <UploadImageForm onPdfImageChange={handlePdfImageChange} />
       </div>
-
       <div>
         <label className="text-[24px] text-bright-green font-normal">
           Category
@@ -129,7 +143,7 @@ const CreateListing: FC = () => {
       {error && <div className="text-red-500">{error}</div>}
       <button
         type="submit"
-        className="italic w-[200px] self-end mt-6 bg-bright-green px-1 py-2 text-black"
+        className="italic w-[200px] font-bold self-end mt-6 bg-bright-green px-1 py-2 text-black"
       >
         Create Listing
       </button>

@@ -6,8 +6,8 @@ import Image from "next/image";
 export interface ListingItem {
   title: string;
   description: string;
-  image: string;
-  isSaved: boolean;
+  featuredImage: string;
+  isSaved: [];
 }
 
 export interface ListingProps extends ListingItem {
@@ -18,7 +18,7 @@ export interface ListingProps extends ListingItem {
 const Listing: FC<ListingProps> = ({
   title,
   description,
-  image,
+  featuredImage,
   isSaved,
   index,
 }) => {
@@ -66,7 +66,7 @@ const Listing: FC<ListingProps> = ({
 
         <div className="text-center flex flex-col items-center">
           <label className="text-bright-green italic text-[24px]">Photo</label>
-          <Image src={image} alt="listing" width={100} height={180} />
+          <Image src={featuredImage} alt="listing" width={100} height={180} />
           <div className="text-bright-green italic text-center mt-1">
             Click to Expand
           </div>
@@ -91,11 +91,11 @@ const Listing: FC<ListingProps> = ({
             Share
           </button>
 
-          {!isSaved && (
+          {/* {!isSaved && (
             <button className="italic border border-bright-green px-1 py-2 bg-bright-yellow-2 text-black">
               Save Listing
             </button>
-          )}
+          )} */}
         </div>
       </div>
 

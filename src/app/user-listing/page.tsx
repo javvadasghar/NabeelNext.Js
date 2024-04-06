@@ -1,20 +1,20 @@
 "use client";
-import ListingsAdmin from "@/components/ListingsAdmin";
+import Listings from "@/components/Listings/UserListing";
 import { FC, useEffect, useState } from "react";
 
-// ADMIN PAGE
-const AllListings: FC = () => {
+const UserListing: FC = () => {
   const [data, setData] = useState([]);
   const [noFound, setNoFound] = useState("");
-  const GetAllListings = async () => {
+  const GetUserListings = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
+      const userId = localStorage.getItem("userId");
       if (!accessToken) {
         console.error("Access token not found");
         return;
       }
       const response = await fetch(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchAllListings`,
+        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchListingByUserId/${userId}`,
         {
           method: "GET",
           mode: "cors",
@@ -24,7 +24,6 @@ const AllListings: FC = () => {
           },
         }
       );
-
       if (!response.ok) {
         const responseData = await response.json();
         if (responseData.error == "Not Found") {
@@ -40,14 +39,19 @@ const AllListings: FC = () => {
   };
 
   useEffect(() => {
-    GetAllListings();
+    GetUserListings();
   }, []);
 
   return (
-    <div className="p-4">
-      <ListingsAdmin listings={data} />
+    <div className="px-4 py-12">
+      <div className="text-[24px] font-bold italic mb-4">User Listings:</div>
+      {noFound !== "" ? (
+        <div>No Listing Found. </div>
+      ) : (
+        <Listings listings={data} />
+      )}
     </div>
   );
 };
 
-export default AllListings;
+export default UserListing;

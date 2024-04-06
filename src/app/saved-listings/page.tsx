@@ -1,5 +1,5 @@
 "use client";
-import Listings from "@/components/Listings";
+import Listings from "@/components/Listings/SavedListing";
 import { FC, useEffect, useState } from "react";
 
 const SavedListings: FC = () => {
@@ -31,7 +31,7 @@ const SavedListings: FC = () => {
         console.log(responseData);
       } else {
         const Successresponse = await response.json();
-        setData(Successresponse);
+        setData(Successresponse?.data);
       }
     } catch (error) {
       // Handle error - show error message to the user, etc.

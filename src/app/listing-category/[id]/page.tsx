@@ -1,4 +1,4 @@
-import Listings from "@/components/Listings";
+import Listings from "@/components/Listings/SavedListing";
 import { FC } from "react";
 
 const listings = [

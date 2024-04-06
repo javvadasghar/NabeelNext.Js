@@ -40,8 +40,10 @@ const SignIn: FC = () => {
       } else {
         toast.success("Signed in successfully!");
         const data = await response.json();
+
         const access_token = data?.data?.tokens?.access_token;
         localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("userId", data?.data?.user?.id);
         window.location.href = "/";
       }
     } catch (error) {

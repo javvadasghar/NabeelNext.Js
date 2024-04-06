@@ -77,15 +77,15 @@ const TopNav: FC = () => {
               <Link href="/" className="italic font-bold">
                 Home
               </Link>
-              {/* <Link href="#" className="italic font-bold">
+              <Link href="#" className="italic font-bold">
                 Back
-              </Link> */}
-              {/* <Link href="#" className="italic font-bold">
+              </Link>
+              <Link href="#" className="italic font-bold">
                 Categories
-              </Link> */}
-              {/* <Link href="#" className="italic font-bold">
+              </Link>
+              <Link href="#" className="italic font-bold">
                 Keyword Search
-              </Link> */}
+              </Link>
               {role === "user" ? (
                 <button onClick={handleLogout} className="w-[80px] font-bold">
                   Log out

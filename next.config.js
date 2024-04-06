@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     remotePatterns: [{ protocol: "https", hostname: "random.imagecdn.app" }],
+    remotePatterns: [{ protocol: "http", hostname: "iwiygi-assets.s3.amazonaws.com" }],
+    domains: ['iwiygi-assets.s3.amazonaws.com'],
   },
 };
 

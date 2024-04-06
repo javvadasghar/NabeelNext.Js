@@ -1,5 +1,5 @@
 import { FC } from "react";
-import Listing, { ListingProps } from "../Listing";
+import Listing, { ListingProps } from "../../Listing";
 
 export interface ListingsProps {
   listings: Array<Omit<ListingProps, "index">>;

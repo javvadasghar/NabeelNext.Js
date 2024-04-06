@@ -8,6 +8,7 @@ import { categories } from "@/utils/categories";
 const Search: FC = () => {
   const [keyword, setKeyword] = useState<string>("");
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [searchData, setSearchData] = useState([]);
 
   const handleSearch = () => {
     const accessToken = localStorage.getItem("accessToken");
@@ -36,8 +37,9 @@ const Search: FC = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the API response data here
-        console.log(data);
+        setSearchData(data?.data);
+        localStorage.setItem("data", JSON.stringify(data?.data));
+        window.location.href = "listings/search";
       })
       .catch((error) => {
         // Handle errors here
@@ -67,7 +69,7 @@ const Search: FC = () => {
           </div>
         )}
         onChange={(event) => {
-          const selectedValue = (event.target as HTMLInputElement).value
+          const selectedValue = (event.target as HTMLInputElement).value;
           setSelectedCategory(selectedValue);
         }}
       >
