@@ -302,9 +302,9 @@ const UserListing: FC<ListingProps> = ({
                 className="hidden"
               />
               <Image
-                onChange={(e) =>
-                  setListingData({ ...listingData, featuredImage: e.target.value })
-                }
+                // onChange={(e) =>
+                //   setListingData({ ...listingData, featuredImage: e.target.value })
+                // }
                 src={listingData.featuredImage}
                 alt="listing"
                 width={100}
