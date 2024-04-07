@@ -130,14 +130,14 @@ const UserListing: FC<ListingProps> = ({
         }
       );
 
-      if (response) {
-        // Successfully deleted
-        toast.success("Listing deleted successfully");
-        window.location.href = "/user-listing";
-      } else {
-        const data = await response.json();
-        setError(data.message);
-      }
+      // if (response) {
+      // Successfully deleted
+      toast.success("Listing deleted successfully");
+      window.location.href = "/user-listing";
+      // } else {
+      //   const data = await response.json();
+      //   setError(data.message);
+      // }
     } catch (error) {
       console.error("Error deleting listing:", error);
       setError(

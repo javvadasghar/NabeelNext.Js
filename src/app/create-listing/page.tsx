@@ -56,7 +56,7 @@ const CreateListing: FC = () => {
         toast.success("Listing created successfully");
       } else {
       }
-    } catch (error) {
+    } catch (error: any) {
       if (error) {
         const responseData = error.response.data;
         if (
