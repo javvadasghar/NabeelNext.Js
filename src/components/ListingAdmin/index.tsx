@@ -20,7 +20,6 @@ const ListingAdmin: FC<ListingAdminProps> = ({
   featuredImage,
   index,
 }) => {
-  debugger;
   return (
     <div className="mt-6">
       <div className="flex gap-4">
