@@ -7,7 +7,7 @@ import ListingAdmin, {
 // ADMIN PAGE
 interface SearchProps extends Omit<ListingAdminProps, "index"> {}
 
-const SearchByCategoryListings: FC<SearchProps> = () => {
+const SearchByCategoryListings: FC = () => {
   const searchData1 = localStorage.getItem("data");
   const searchhh = searchData1 ? JSON.parse(searchData1) : [];
   return (
