@@ -57,7 +57,7 @@ const CreateListing: FC = () => {
       } else {
       }
     } catch (error) {
-      if (error && error.response) {
+      if (error) {
         const responseData = error.response.data;
         if (
           responseData.message ===
