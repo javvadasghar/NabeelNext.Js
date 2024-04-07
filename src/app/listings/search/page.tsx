@@ -8,6 +8,9 @@ import ListingAdmin, {
 interface SearchProps extends Omit<ListingAdminProps, "index"> {}
 
 const SearchByCategoryListings: FC = () => {
+  if (typeof window === "undefined") {
+    return null;
+  }
   const searchData1 = localStorage.getItem("data");
   const searchhh = searchData1 ? JSON.parse(searchData1) : [];
   return (
