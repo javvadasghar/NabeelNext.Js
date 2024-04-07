@@ -7,7 +7,7 @@ export interface ListingItem {
   title: string;
   description: string;
   featuredImage: string;
-  isSaved: [];
+  isSaved: Boolean;
 }
 
 export interface ListingProps extends ListingItem {

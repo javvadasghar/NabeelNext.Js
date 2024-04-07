@@ -5,9 +5,7 @@ import ListingAdmin, {
 } from "../../../components/ListingAdmin";
 
 // ADMIN PAGE
-// interface SearchProps {
-//   searchhh: Array<Omit<ListingAdminProps, "index">>; // Define props interface
-// }
+interface SearchProps extends Omit<ListingAdminProps, "index"> {}
 
 const SearchByCategoryListings: FC<SearchProps> = () => {
   const searchData1 = localStorage.getItem("data");
@@ -19,8 +17,8 @@ const SearchByCategoryListings: FC<SearchProps> = () => {
         <div>No Listing Found. </div>
       ) : (
         <>
-          {searchhh.map((listing, index) => {
-            return <ListingAdmin key={listing.id} index={index} {...listing} />;
+          {searchhh.map((listing: ListingAdminProps, index: number) => {
+            return <ListingAdmin key={listing.id} {...listing} />;
           })}
         </>
       )}

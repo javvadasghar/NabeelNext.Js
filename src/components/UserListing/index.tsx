@@ -170,7 +170,7 @@ const UserListing: FC<ListingProps> = ({
       if (response.status === 200) {
         toast.success(response?.data?.message);
       }
-    } catch (error) {
+    } catch (error: any) {
       toast.error(error?.response?.data?.message);
     }
   };
@@ -302,11 +302,10 @@ const UserListing: FC<ListingProps> = ({
                 className="hidden"
               />
               <Image
-                value={listingData.featuredImage}
                 onChange={(e) =>
-                  setListingData({ ...listingData, image: e.target.value })
+                  setListingData({ ...listingData, featuredImage: e.target.value })
                 }
-                src={featuredImage}
+                src={listingData.featuredImage}
                 alt="listing"
                 width={100}
                 height={180}
