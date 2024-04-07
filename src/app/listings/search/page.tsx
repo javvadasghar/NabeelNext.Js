@@ -9,7 +9,7 @@ interface SearchProps {
   searchhh: Array<Omit<ListingAdminProps, "index">>; // Define props interface
 }
 
-const SearchByCategoryListings: FC<SearchProps> = ({}) => {
+const SearchByCategoryListings: FC<SearchProps> = () => {
   const searchData1 = localStorage.getItem("data");
   const searchhh = searchData1 ? JSON.parse(searchData1) : [];
   return (
