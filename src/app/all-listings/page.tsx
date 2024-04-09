@@ -13,17 +13,23 @@ const AllListings: FC = () => {
         console.error("Access token not found");
         return;
       }
-      const response = await fetch(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchAllListings`,
-        {
-          method: "GET",
-          mode: "cors",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      const admin = localStorage.getItem("username");
+      let api = "";
+      if (admin && admin === "iwiygi_admin") {
+        api =
+          "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllListings";
+      } else {
+        api =
+          "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchAllListings";
+      }
+      const response = await fetch(api, {
+        method: "GET",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
 
       if (!response.ok) {
         const responseData = await response.json();
@@ -32,7 +38,11 @@ const AllListings: FC = () => {
         }
       } else {
         const Successresponse = await response.json();
-        setData(Successresponse?.data);
+        {
+          admin === "iwiygi_admin"
+            ? setData(Successresponse?.data?.listings?.data)
+            : setData(Successresponse?.data);
+        }
       }
     } catch (error) {
       // Handle error - show error message to the user, etc.

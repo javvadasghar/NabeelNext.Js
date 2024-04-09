@@ -44,6 +44,7 @@ const SignIn: FC = () => {
         const access_token = data?.data?.tokens?.access_token;
         localStorage.setItem("accessToken", access_token);
         localStorage.setItem("userId", data?.data?.user?.id);
+        localStorage.setItem("username", data?.data?.user?.username);
         window.location.href = "/";
       }
     } catch (error) {

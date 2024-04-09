@@ -8,9 +8,6 @@ import ListingAdmin, {
 interface SearchProps extends Omit<ListingAdminProps, "index"> {}
 
 const SearchByCategoryListings: FC = () => {
-  if (typeof window === "undefined") {
-    return null;
-  }
   const searchData1 = localStorage.getItem("data");
   const searchhh = searchData1 ? JSON.parse(searchData1) : [];
   return (
@@ -21,7 +18,7 @@ const SearchByCategoryListings: FC = () => {
       ) : (
         <>
           {searchhh.map((listing: ListingAdminProps, index: number) => {
-            return <ListingAdmin key={listing.id} {...listing} />;
+            return <ListingAdmin key={listing.id} index={index} {...listing} />;
           })}
         </>
       )}

@@ -2,6 +2,8 @@ import Image from "next/image";
 import { FC } from "react";
 import TextInput from "../Form/TextInput";
 import TextArea from "../Form/TextArea";
+import axios from "axios";
+import { toast } from "sonner";
 export interface ListingAdminItem {
   featuredImage: string;
   title: string;
@@ -20,6 +22,33 @@ const ListingAdmin: FC<ListingAdminProps> = ({
   featuredImage,
   index,
 }) => {
+  const handleDeleteListing = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      console.error("Access token not found");
+      return;
+    }
+    const admin = localStorage.getItem("username");
+    let api = "";
+    if (admin && admin === "iwiygi_admin") {
+      api = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/deleteListing/${id}`;
+    } else {
+      api = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/deleteListing/${id}`;
+    }
+    try {
+      await axios.get(api, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      toast.success("Listing deleted successfully");
+      window.location.href = "/all-listings";
+    } catch (error) {
+      console.error("Error deleting listing:", error);
+    }
+  };
+
   return (
     <div className="mt-6">
       <div className="flex gap-4">
@@ -72,9 +101,12 @@ const ListingAdmin: FC<ListingAdminProps> = ({
             width={100}
             height={40}
           />
-          <div className="text-center text-bright-green italic font-bold">
+          <button
+            onClick={handleDeleteListing}
+            className="text-center text-bright-green italic font-bold"
+          >
             Delete Listing
-          </div>
+          </button>
 
           <Image
             src="/images/underline.png"
