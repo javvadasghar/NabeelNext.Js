@@ -87,7 +87,7 @@ const AllUsers: FC = () => {
     <div className="p-4">
       {users.map((user) => {
         return (
-          <div className="mt-6">
+          <div key={user.id} className="mt-6">
             <div className="flex">
               <div className="flex flex-1 items-center gap-4">
                 {/* <Image
