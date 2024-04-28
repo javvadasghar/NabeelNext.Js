@@ -19,32 +19,59 @@ const Search: FC = () => {
     // Construct the API endpoint with the keyword as the listingTitle parameter
 
     let apiUrl = "";
-    if (selectedCategory) {
-      apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByCategory/${selectedCategory}`;
-    } else if (keyword) {
-      apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByListing/${keyword}`;
-    } else {
-      return;
-    }
+    if (selectedCategory && keyword) {
+      apiUrl =
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchCategoryByTitle";
 
-    // Perform the API request using fetch or axios
-    fetch(apiUrl, {
-      method: "GET", // or "POST", "PUT", etc.
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`, // Include the authorization header
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setSearchData(data?.data);
-        localStorage.setItem("data", JSON.stringify(data?.data));
-        window.location.href = "listings/search";
+      fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`, // Include the authorization header
+        },
+        body: JSON.stringify({
+          listingTitle: keyword,
+          listingCategory: selectedCategory,
+        }),
       })
-      .catch((error) => {
-        // Handle errors here
-        console.error("Error:", error);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          setSearchData(data?.data);
+          localStorage.setItem("data", JSON.stringify(data?.data));
+          window.location.href = "listings/search";
+        })
+        .catch((error) => {
+          // Handle errors here
+          console.error("Error:", error);
+        });
+    } else {
+      if (selectedCategory) {
+        apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByCategory/${selectedCategory}`;
+      } else if (keyword) {
+        apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByListing/${keyword}`;
+      } else {
+        return;
+      }
+
+      // Perform the API request using fetch or axios
+      fetch(apiUrl, {
+        method: "GET", // or "POST", "PUT", etc.
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${accessToken}`, // Include the authorization header
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setSearchData(data?.data);
+          localStorage.setItem("data", JSON.stringify(data?.data));
+          window.location.href = "listings/search";
+        })
+        .catch((error) => {
+          // Handle errors here
+          console.error("Error:", error);
+        });
+    }
   };
 
   return (

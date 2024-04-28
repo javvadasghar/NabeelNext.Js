@@ -8,7 +8,9 @@ const UserListing: FC = () => {
   const GetUserListings = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const userId = localStorage.getItem("userId");
+
+      const user = JSON.parse(localStorage.getItem("User") || "");
+      const userId = user.id;
       if (!accessToken) {
         console.error("Access token not found");
         return;

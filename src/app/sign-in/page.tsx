@@ -34,18 +34,18 @@ const SignIn: FC = () => {
         },
         body: JSON.stringify({ username, password }),
       });
+
       if (!response.ok) {
         const responseData = await response.json();
         setError(responseData.message);
       } else {
-        toast.success("Signed in successfully!");
         const data = await response.json();
-
-        const access_token = data?.data?.tokens?.access_token;
-        localStorage.setItem("accessToken", access_token);
-        localStorage.setItem("userId", data?.data?.user?.id);
-        localStorage.setItem("username", data?.data?.user?.username);
-        window.location.href = "/";
+        if (data?.data?.user?.role === "user") {
+          toast.success("Signed in successfully!");
+          const access_token = data?.data?.tokens?.access_token;
+          localStorage.setItem("accessToken", access_token);
+          window.location.href = "/";
+        } else setError("Signin Failed. User not Found.");
       }
     } catch (error) {
       // setError(error?.response?.data?.message);

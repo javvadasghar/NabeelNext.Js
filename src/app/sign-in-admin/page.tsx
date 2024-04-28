@@ -18,7 +18,7 @@ const SignInAdmin: FC = () => {
     }
 
     const SignInPostApi =
-      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/signin";
+      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/signin";
     try {
       const response = await fetch(SignInPostApi, {
         method: "POST",
@@ -32,13 +32,13 @@ const SignInAdmin: FC = () => {
         const responseData = await response.json();
         setError(responseData.message);
       } else {
-        toast.success("Signed in successfully!");
         const data = await response.json();
-
-        const access_token = data?.data?.tokens?.access_token;
-        localStorage.setItem("accessToken", access_token);
-        localStorage.setItem("userId", data?.data?.user?.id);
-        window.location.href = "/";
+        if (data?.data?.user?.role === "admin") {
+          toast.success("Signed in successfully!");
+          const access_token = data?.data?.tokens?.access_token;
+          localStorage.setItem("accessToken", access_token);
+          window.location.href = "/";
+        } else setError("Signin Failed. Admin not Found.");
       }
     } catch (error) {
       // setError(error?.response?.data?.message);

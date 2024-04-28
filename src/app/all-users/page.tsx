@@ -2,6 +2,7 @@
 import Image from "next/image";
 import axios from "axios";
 import { FC, useState, useEffect } from "react";
+import { toast } from "sonner";
 
 // ADMIN PAGE
 
@@ -9,41 +10,42 @@ interface User {
   id: string;
   name: string;
   image: string;
-  totalListings: number;
+  listingCount: number;
   status: string;
+  isActive: boolean;
   username: string;
+  email: string;
 }
 
 const AllUsers: FC = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [loadingUserId, setLoadingUserId] = useState<string | null>(null);
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    if (!accessToken) {
-      console.error("Access token not found");
-      return;
-    }
-    const fetchAllUsers = async () => {
-      try {
-        const response = await axios.get(
-          "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllUsers",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-            },
-          }
-        );
-        if (response.status === 200) {
-          setUsers(response?.data?.data?.users);
+  const accessToken = localStorage.getItem("accessToken");
+  if (!accessToken) {
+    console.error("Access token not found");
+    return;
+  }
+  const fetchAllUsers = async () => {
+    try {
+      const response = await axios.get(
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllUsers",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
         }
-      } catch (error) {
-        console.error("Error fetching users:", error);
+      );
+      if (response.status === 200) {
+        setUsers(response?.data?.data);
       }
-    };
-
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+  useEffect(() => {
     fetchAllUsers();
   }, []);
 
@@ -75,11 +77,35 @@ const AllUsers: FC = () => {
               : user
           )
         );
+        await fetchAllUsers();
       }
     } catch (error) {
       console.error("Error toggling user account:", error);
     } finally {
       setLoadingUserId(null);
+    }
+  };
+
+  const sendWarningEmail = async (receiverEmail: string, username: string) => {
+    try {
+      const response = await axios.post(
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/mailer/sendWarningEmail",
+        {
+          recieverEmail: receiverEmail,
+          username: username,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        toast.success("Warning email sent successfully.");
+      }
+    } catch (error) {
+      console.error("Error sending warning email:", error);
     }
   };
 
@@ -105,7 +131,7 @@ const AllUsers: FC = () => {
                 <div className="text-[16px] italic">
                   Total Listings
                   <span className="text-bright-green">
-                    ({user.totalListings})
+                    ({user.listingCount})
                   </span>
                 </div>
               </div>
@@ -113,7 +139,7 @@ const AllUsers: FC = () => {
               <div className="flex items-center gap-4">
                 <div
                   className={`flex flex-col items-center rounded-[50%] px-[20px] py-[8px] ${
-                    user.status === "active" ? "bg-red-800" : "bg-bright-green"
+                    user.isActive ? "bg-bright-green" : "bg-red-800"
                   }`}
                   onClick={() => toggleUserAccount(user.id)}
                   style={{
@@ -123,12 +149,10 @@ const AllUsers: FC = () => {
                 >
                   <div
                     className={`italic font-bold ${
-                      user.status === "active"
-                        ? "text-bright-green"
-                        : "text-black"
+                      user.isActive ? "text-black" : "text-bright-green"
                     }`}
                   >
-                    {user.status === "active" ? "Restrict" : "Activate"}
+                    {user.isActive ? "Activate" : "Restrict"}
                   </div>
 
                   <Image
@@ -140,7 +164,10 @@ const AllUsers: FC = () => {
                   />
                 </div>
 
-                <div className="flex flex-col items-center bg-red-800 rounded-[50%] px-[20px] py-[8px]">
+                <button
+                  onClick={() => sendWarningEmail(user.email, user.username)}
+                  className="flex flex-col items-center bg-red-800 rounded-[50%] px-[20px] py-[8px]"
+                >
                   <div className="italic font-bold text-bright-green">
                     Send Warning Email
                   </div>
@@ -151,7 +178,7 @@ const AllUsers: FC = () => {
                     width={100}
                     height={40}
                   />
-                </div>
+                </button>
               </div>
             </div>
 

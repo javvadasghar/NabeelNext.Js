@@ -1,20 +1,89 @@
 "use client";
 import Image from "next/image";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
+import axios from "axios";
 import Link from "next/link";
 import AdSpace from "./_components/AdSpace";
 import Search from "./_components/Search";
 import { categories } from "@/utils/constants";
 
+interface Ad {
+  id: string;
+  adImage: string;
+  adSpaceNumber: number;
+  adImageUrl: string;
+}
+
 const Home: FC = () => {
+  const [ads, setAds] = useState<Ad[]>([]);
+  useEffect(() => {
+    fetchUsersDetails();
+    fetchAds();
+  }, []);
+
+  const fetchAds = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      console.error("Access token not found");
+      return;
+    }
+    try {
+      const response = await axios.get(
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllAds",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      
+      if (response.status === 200) {
+        
+        setAds(response?.data?.data);
+      }
+    } catch (error) {
+      console.error("Error fetching ads:", error);
+    }
+  };
+
+  const adsSpace1 = ads && ads.filter((ad) => ad.adSpaceNumber === 1);
+  const adsSpace3 = ads && ads.filter((ad) => ad.adSpaceNumber === 3);
+
   const [showVideo, setShowVideo] = useState(false);
   const toggleVideo = () => {
     setShowVideo(!showVideo);
   };
+
+  const fetchUsersDetails = async () => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (!accessToken) {
+      console.error("Access token not found");
+      return;
+    }
+    try {
+      const response = await axios.get(
+        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/user/fetchUserDetails",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        localStorage.setItem("User", JSON.stringify(response?.data?.data));
+      }
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    }
+  };
+
   return (
     <div className="px-6 pt-2 pb-6">
       <div className="flex">
-        <AdSpace />
+        <AdSpace ads={adsSpace1} />
 
         <div className="flex flex-1 items-center flex-col gap-6">
           <div className="text-bright-green italic text-[30px] font-bold">
@@ -87,7 +156,7 @@ const Home: FC = () => {
           </div>
         </div>
 
-        <AdSpace />
+        <AdSpace ads={adsSpace3} />
       </div>
 
       <div className="flex flex-col items-center mt-4">

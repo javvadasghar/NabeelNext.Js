@@ -13,9 +13,11 @@ const AllListings: FC = () => {
         console.error("Access token not found");
         return;
       }
-      const admin = localStorage.getItem("username");
+
+      const admin = JSON.parse(localStorage.getItem("User") || "");
+      const checkAdmin = admin?.role;
       let api = "";
-      if (admin && admin === "iwiygi_admin") {
+      if (checkAdmin && checkAdmin === "admin") {
         api =
           "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllListings";
       } else {
