@@ -8,6 +8,7 @@ import { FC, useCallback, useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
 import UploadImageForm from "./_components/UploadImageForm";
+import isAuth from "@/components/auth/isAuth";
 
 const CreateListing: FC = () => {
   const [pdfImage, setPdfImage] = useState<File | null>(null);
@@ -54,15 +55,14 @@ const CreateListing: FC = () => {
       );
       if (response.status === 201) {
         toast.success("Listing created successfully");
+        window.location.href = "user-listing";
       } else {
       }
     } catch (error: any) {
       if (error) {
+        
         const responseData = error.response.data;
-        if (
-          responseData.message ===
-          "Not Found. Please make sure you on-boarded your paypal with our platform"
-        ) {
+        if (responseData.error == "Forbidden") {
           window.location.href = "/onboard";
         } else {
           setError(responseData.message);
@@ -151,4 +151,4 @@ const CreateListing: FC = () => {
   );
 };
 
-export default CreateListing;
+export default isAuth(CreateListing);

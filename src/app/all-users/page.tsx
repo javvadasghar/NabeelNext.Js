@@ -3,6 +3,7 @@ import Image from "next/image";
 import axios from "axios";
 import { FC, useState, useEffect } from "react";
 import { toast } from "sonner";
+import isAuth from "@/components/auth/isAuth";
 
 // ADMIN PAGE
 
@@ -190,4 +191,4 @@ const AllUsers: FC = () => {
   );
 };
 
-export default AllUsers;
+export default isAuth(AllUsers);

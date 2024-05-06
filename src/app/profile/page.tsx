@@ -1,7 +1,9 @@
 "use client";
 import TextInput from "@/components/Form/TextInput";
-import { FC, useState } from "react";
+import { FC, useState, useLayoutEffect } from "react";
+import { redirect } from "next/navigation";
 import Link from "next/link";
+import isAuth from "@/components/auth/isAuth";
 import { toast } from "sonner";
 
 const Profile: FC = () => {
@@ -145,4 +147,4 @@ const Profile: FC = () => {
   );
 };
 
-export default Profile;
+export default isAuth(Profile);

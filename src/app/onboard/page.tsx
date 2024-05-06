@@ -1,10 +1,14 @@
 "use client";
+import isAuth from "@/components/auth/isAuth";
+import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import React from "react";
+import { toast } from "sonner";
 
 const Onboard: FC = () => {
   const [error, setError] = useState("");
   const [successmsg, setsuccessmsg] = useState("");
+  const [paypalEmail, setPaypalEmail] = useState("");
   const queryString =
     typeof window !== "undefined" ? window.location.search : "";
   const urlParams = new URLSearchParams(queryString);
@@ -14,6 +18,42 @@ const Onboard: FC = () => {
       handleVerification();
     }
   }, []);
+
+  const handleOnboardClick = async () => {
+    setError("");
+    
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("Access token not found");
+        return;
+      }
+      const response = await fetch(
+        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/payments/initiateOnboarding/${paypalEmail}`,
+        {
+          method: "GET",
+          mode: "cors",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (!response.ok) {
+        const responseData = await response.json();
+        setError(responseData.message);
+        // throw new Error(responseData.statusText);
+      } else {
+        console.log(response);
+        toast.success("Onboarding Email Sent. Please check Email");
+        // Handle success response
+        // For now, let's just set success message
+        // setSuccessMsg("Onboarding initiated successfully!");
+      }
+    } catch (error) {
+      setError("Failed to initiate onboarding. Please try again.");
+    }
+  };
 
   const handleVerification = async () => {
     let gettoken = urlParams.get("token");
@@ -49,17 +89,34 @@ const Onboard: FC = () => {
             </h1>
           </div>
           <div className="flex justify-center mt-4">
+            <input
+              type="email"
+              placeholder="Enter your PayPal email"
+              value={paypalEmail}
+              onChange={(e) => setPaypalEmail(e.target.value)}
+              className="mr-4 bg-white text-black border-2 border-gray-300 rounded-md px-4 py-2"
+            />
             <button
-              type="submit"
+              onClick={handleOnboardClick}
               className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[24px] italic"
             >
               Onboard Now
             </button>
           </div>
+          <div>
+            No Paypal? No Worries.{" "}
+            <Link
+              href="https://www.paypal.com/de/welcome/signup"
+              className="bg-dark-green text-black  rounded-[50%] px-[50px] py-[10px] font-bold "
+            >
+              Create Paypal{" "}
+            </Link>
+          </div>
+          {error && <div className="text-red-500">{error}</div>}
         </div>
       </div>
     </div>
   );
 };
 
-export default Onboard;
+export default isAuth(Onboard);

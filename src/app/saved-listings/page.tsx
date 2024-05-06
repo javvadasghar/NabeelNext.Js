@@ -1,5 +1,6 @@
 "use client";
 import Listings from "@/components/Listings/SavedListing";
+import isAuth from "@/components/auth/isAuth";
 import { FC, useEffect, useState } from "react";
 
 const SavedListings: FC = () => {
@@ -53,4 +54,4 @@ const SavedListings: FC = () => {
   );
 };
 
-export default SavedListings;
+export default isAuth(SavedListings);

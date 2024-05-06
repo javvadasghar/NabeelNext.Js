@@ -34,6 +34,7 @@ const UserListing: FC<ListingProps> = ({
   const [selectedImage1, setSelectedImage1] = useState(null);
   const [showEditPopup, setShowEditPopup] = useState<boolean>(false);
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [showPayPalPopup, setShowPayPalPopup] = useState<boolean>(false);
   const [listingData, setListingData] = useState<ListingItem>({
     title: "",
     description: "",
@@ -42,8 +43,31 @@ const UserListing: FC<ListingProps> = ({
     price: "234",
   });
 
+  const [invoiceFields, setInvoiceFields] = useState({
+    invoiceeEmail: "",
+    invoiceeName: "",
+    streetAddress: "",
+    city: "",
+    adminAreaTwo: "",
+    postalCode: "",
+    itemPrice: "",
+    itemName: "",
+  });
+
+  const handleInvoiceFieldChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setInvoiceFields((prevFields) => ({
+      ...prevFields,
+      [name]: value,
+    }));
+  };
+
   const handleMessageChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setMessage(e.target.value); // Update the message state with the new value
+  };
+
+  const handlePayPalButtonClick = () => {
+    setShowPayPalPopup(true);
   };
 
   const fetchListingData = async () => {
@@ -84,8 +108,43 @@ const UserListing: FC<ListingProps> = ({
   };
 
   const handleClosePopup = () => {
+    setShowPayPalPopup(false);
     setShowEditPopup(false);
     setShowPopup(false);
+  };
+
+  const handleCreateInvoice = async () => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      if (!accessToken) {
+        console.error("Access token not found");
+        return;
+      }
+      const formData = new FormData();
+      Object.entries(invoiceFields).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      const response = await axios.post(
+        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/payments/CreateAndSendInvoice`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        toast.success("Invoice Sent to Email successfully");
+        setShowPayPalPopup(false);
+        // setListingData(response?.data?.data);
+      }
+    } catch (error) {
+      console.error("Error fetching listing data:", error);
+      setError(
+        "An error occurred while fetching the listing data. Please try again later."
+      );
+    }
   };
 
   const handleBindApi = async () => {
@@ -125,6 +184,7 @@ const UserListing: FC<ListingProps> = ({
 
       if (response.status === 200) {
         toast.success(response?.data?.message);
+        toast.success("Email Sent Successfully!");
       }
     } catch (error: any) {
       toast.error(error?.response?.data?.message);
@@ -453,12 +513,166 @@ const UserListing: FC<ListingProps> = ({
               </div> */}
               <div className="flex flex-col">
                 <div className="font-bold">Create a PayPal Invoice Now</div>
-                <div className="p-2 bg-amber-400 italic font-bold">
+                <button
+                  onClick={handlePayPalButtonClick}
+                  className="p-2 bg-amber-400 italic font-bold"
+                >
                   <span className="text-sky-950">Pay</span>
                   <span className="text-cyan-500">Pal</span>
-                </div>
+                </button>
               </div>
             </div>
+          </div>
+        </div>
+      )}
+
+      {showPayPalPopup && (
+        <div
+          style={{ transform: "translate(-50%, -50%)", zIndex: "1" }}
+          className="fixed bg-black top-1/2 left-1/2 z-1 p-4 border-4 border-bright-green"
+        >
+          <div className="p-4">
+            <button
+              className="absolute top-2 right-2 text-white font-bold"
+              onClick={handleClosePopup}
+            >
+              X
+            </button>
+          </div>
+          <div className="flex flex-1 flex-col gap-8">
+            <div className="flex font-bold flex-row items-center justify-center text-blue-700">
+              <span className="dot"></span> Be sure your agreed purchase price
+              including shipping <span className="dot"></span>
+            </div>
+            <TextInput
+              label={"Invoicee Email"}
+              name="invoiceeEmail"
+              onChange={handleInvoiceFieldChange}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                fontSize: "12x",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+
+            <TextInput
+              label={"Invoicee Name"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="invoiceeName"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"Street Address"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="streetAddress"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"City"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="city"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"State/Area"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="adminAreaTwo"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"Postal Code"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="postalCode"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"Item Price"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="itemPrice"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+            <TextInput
+              label={"Item Name"}
+              containerClassName="gap-0"
+              labelClassName="text-[16px] text-bright-green font-normal"
+              name="itemName"
+              onChange={handleInvoiceFieldChange}
+              style={{
+                padding: 0,
+                paddingTop: "2px",
+                paddingBottom: "2px",
+                // fontSize: "24px",
+                fontWeight: "bold",
+                fontStyle: "italic",
+              }}
+            />
+          </div>
+          <div
+            onClick={handleCreateInvoice}
+            className="flex mt-4 flex-col items-center bg-bright-green h-fit rounded-[50%] px-[10px] py-[14px]"
+          >
+            <button className="italic font-bold text-black">
+              Create Invoice
+            </button>
           </div>
         </div>
       )}

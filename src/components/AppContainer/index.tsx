@@ -1,5 +1,5 @@
 "use client";
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import BottomNav from "../BottomNav";
 import TopNav from "../TopNav";
 import ContactUs from "@/app/footer/contactus";
@@ -35,6 +35,9 @@ const AppContainer: FC<AppContainerProps> = ({ children }) => {
     setShowModal(true);
     setModalContent(<TermsofUse />);
   };
+  useEffect(() => {
+    <TopNav />;
+  }, []);
   return (
     <div className="flex flex-col h-screen relative">
       <TopNav />

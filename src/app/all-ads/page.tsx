@@ -3,6 +3,7 @@ import { FC, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { toast } from "sonner";
+import isAuth from "@/components/auth/isAuth";
 
 // ADMIN PAGE
 
@@ -212,4 +213,4 @@ const AllAds: FC = () => {
   );
 };
 
-export default AllAds;
+export default isAuth(AllAds);

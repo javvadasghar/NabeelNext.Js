@@ -25,6 +25,7 @@ const TopNav: FC = () => {
   const [role, setRole] = useState("client");
   const userJSON = localStorage.getItem("User");
   let admin = {};
+  
   if (userJSON) {
     try {
       admin = JSON.parse(userJSON);
@@ -78,6 +79,7 @@ const TopNav: FC = () => {
   const adsSpace2 = ads && ads.filter((ad) => ad.adSpaceNumber === 2);
 
   const handleLogout = async (e: React.FormEvent) => {
+    
     e.preventDefault();
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -138,7 +140,7 @@ const TopNav: FC = () => {
               <Link href="/" className="italic font-bold">
                 Home
               </Link>
-              <Link href="#" className="italic font-bold">
+              {/* <Link href="#" className="italic font-bold">
                 Back
               </Link>
               <Link href="#" className="italic font-bold">
@@ -146,8 +148,8 @@ const TopNav: FC = () => {
               </Link>
               <Link href="#" className="italic font-bold">
                 Keyword Search
-              </Link>
-              {admin ? (
+              </Link> */}
+              {userJSON ? (
                 <button onClick={handleLogout} className="w-[80px] font-bold">
                   Log out
                 </button>
