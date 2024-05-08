@@ -5,6 +5,7 @@ import TextInput from "../Form/TextInput";
 import Image from "next/image";
 import { toast } from "sonner";
 import imagesold from "../../../public/images/sold.png";
+import Share from "../Share";
 
 export interface ListingItem {
   title: string;
@@ -13,6 +14,7 @@ export interface ListingItem {
   isSaved: boolean;
   price: string;
   message?: string;
+  category: string;
 }
 
 export interface ListingProps extends ListingItem {
@@ -39,6 +41,7 @@ const UserListing: FC<ListingProps> = ({
     title: "",
     description: "",
     featuredImage: "",
+    category: "",
     isSaved: false,
     price: "234",
   });
@@ -209,6 +212,7 @@ const UserListing: FC<ListingProps> = ({
       const formData = new FormData();
       formData.append("title", listingData.title);
       formData.append("description", listingData.description);
+      formData.append("category ", listingData.category);
       if (selectedImage) {
         formData.append("image", selectedImage);
       }
@@ -225,14 +229,11 @@ const UserListing: FC<ListingProps> = ({
       );
       if (response.status === 200) {
         toast.success(response?.data?.message);
-        setShowEditPopup(false); // Close the edit popup after successful update
+        setShowEditPopup(false);
         window.location.href = "/user-listing";
       }
     } catch (error) {
-      console.error("Error updating listing:", error);
-      setError(
-        "An error occurred while updating the listing. Please try again later."
-      );
+      setError(error?.response?.data?.message);
     }
   };
 
@@ -409,7 +410,7 @@ const UserListing: FC<ListingProps> = ({
             Delete
           </button>
           <button className="italic border border-bright-green px-1 py-2 bg-blue-dark">
-            Share
+            <Share />
           </button>
 
           {!isSaved && (
@@ -743,6 +744,7 @@ const UserListing: FC<ListingProps> = ({
             >
               Update Listing
             </button>
+            {error && <div className="text-red-500">{error}</div>}
           </div>
         </div>
       )}

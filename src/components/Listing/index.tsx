@@ -72,7 +72,7 @@ const Listing: FC<ListingProps> = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-4 items-center justify-center">
+        {/* <div className="flex flex-col gap-4 items-center justify-center">
           <div className="flex flex-col items-center bg-bright-green h-fit rounded-[50%] px-[10px] py-[14px]">
             <div className="italic font-bold text-black">
               I&apos;ve Got It !
@@ -89,14 +89,14 @@ const Listing: FC<ListingProps> = ({
 
           <button className="italic border border-bright-green px-1 py-2 bg-blue-dark">
             Share
-          </button>
+          </button> */}
 
-          {/* {!isSaved && (
+        {/* {!isSaved && (
             <button className="italic border border-bright-green px-1 py-2 bg-bright-yellow-2 text-black">
               Save Listing
             </button>
           )} */}
-        </div>
+        {/* </div> */}
       </div>
 
       <hr className="border-bright-green mt-6 border-2 w-full" />

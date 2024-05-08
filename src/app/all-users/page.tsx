@@ -153,7 +153,7 @@ const AllUsers: FC = () => {
                       user.isActive ? "text-black" : "text-bright-green"
                     }`}
                   >
-                    {user.isActive ? "Activate" : "Restrict"}
+                    {user.isActive ? "Activated" : "Restricted"}
                   </div>
 
                   <Image
