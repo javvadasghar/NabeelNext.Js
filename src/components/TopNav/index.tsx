@@ -90,7 +90,7 @@ const TopNav: FC = () => {
         return;
       }
       const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API}/api/auth/logout",
+        `${process.env.NEXT_PUBLIC_API}/api/auth/logout`,
         {
           method: "POST",
           mode: "cors",

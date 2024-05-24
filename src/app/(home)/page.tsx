@@ -87,7 +87,7 @@ const Home: FC = () => {
     }
     try {
       const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API}/api/user/fetchUserDetails",
+        `${process.env.NEXT_PUBLIC_API}/api/user/fetchUserDetails`,
         {
           method: "GET",
           headers: {
