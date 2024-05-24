@@ -63,7 +63,7 @@ const SignIn: FC = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "https://api.iwantityougotit.com/api/auth/forgotPassword",
+        `${process.env.NEXT_PUBLIC_API}/api/auth/forgotPassword`,
         {
           method: "POST",
           mode: "cors",

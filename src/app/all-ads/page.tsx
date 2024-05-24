@@ -27,7 +27,7 @@ const AllAds: FC = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/fetchAllAds`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -78,7 +78,7 @@ const AllAds: FC = () => {
       formData.append("adImage", file);
       formData.append("adSpaceNumber", String(index + 1));
       const response = await axios.post(
-        "https://api.iwantityougotit.com/api/admin/postAd",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/postAd",
         formData,
         {
           headers: {

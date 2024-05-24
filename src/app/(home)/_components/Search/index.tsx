@@ -21,7 +21,7 @@ const Search: FC = () => {
     let apiUrl = "";
     if (selectedCategory && keyword) {
       apiUrl =
-        "https://api.iwantityougotit.com/api/listings/searchCategoryByTitle";
+        `${process.env.NEXT_PUBLIC_API}/api/listings/searchCategoryByTitle`;
 
       fetch(apiUrl, {
         method: "POST",

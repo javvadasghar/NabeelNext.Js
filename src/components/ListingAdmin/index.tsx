@@ -181,7 +181,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       // }
 
       const response = await axios.post(
-        "https://api.iwantityougotit.com/api/mailer/sendBlindEmail",
+        `${process.env.NEXT_PUBLIC_API}/api/mailer/sendBlindEmail`,
         formData,
         {
           headers: {
@@ -209,7 +209,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       }
 
       const response = await axios.post(
-        "https://api.iwantityougotit.com/api/listings/saveListing",
+        `${process.env.NEXT_PUBLIC_API}/api/listings/saveListing",
         {
           listingId: id,
         },

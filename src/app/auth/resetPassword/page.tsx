@@ -27,7 +27,7 @@ const ResetPassword: FC = () => {
     }
 
     const ResetPasswordPostApi =
-      "https://api.iwantityougotit.com/api/auth/resetPassword";
+      `${process.env.NEXT_PUBLIC_API}/api/auth/resetPassword`;
     try {
       const response = await fetch(ResetPasswordPostApi, {
         method: "POST",

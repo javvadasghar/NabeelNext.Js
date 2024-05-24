@@ -31,7 +31,7 @@ const Profile: FC = () => {
       }
 
       const ChangePasswordPostApi =
-        "https://api.iwantityougotit.com/api/auth/updatePassword";
+        `${process.env.NEXT_PUBLIC_API}/api/auth/updatePassword`;
       const response = await fetch(ChangePasswordPostApi, {
         method: "POST",
         mode: "cors",

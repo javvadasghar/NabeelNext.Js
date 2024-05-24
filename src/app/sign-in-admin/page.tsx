@@ -18,7 +18,7 @@ const SignInAdmin: FC = () => {
     }
 
     const SignInPostApi =
-      "https://api.iwantityougotit.com/api/admin/signin";
+      `${process.env.NEXT_PUBLIC_API}/api/admin/signin`;
     try {
       const response = await fetch(SignInPostApi, {
         method: "POST",

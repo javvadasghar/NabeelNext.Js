@@ -19,10 +19,10 @@ const AllListings: FC = () => {
       let api = "";
       if (checkAdmin && checkAdmin === "admin") {
         api =
-          "https://api.iwantityougotit.com/api/admin/fetchAllListings";
+          `${process.env.NEXT_PUBLIC_API}/api/admin/fetchAllListings`;
       } else {
         api =
-          "https://api.iwantityougotit.com/api/listings/fetchAllListings";
+          `${process.env.NEXT_PUBLIC_API}/api/listings/fetchAllListings`;
       }
       const response = await fetch(api, {
         method: "GET",

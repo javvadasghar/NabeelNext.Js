@@ -34,7 +34,7 @@ const SignUp: FC = () => {
       return;
     }
     const SignUpPostApi =
-      "https://api.iwantityougotit.com/api/auth/signup";
+      `${process.env.NEXT_PUBLIC_API}/api/auth/signup`;
 
     try {
       await axios.post(SignUpPostApi, formData).then((response) => {

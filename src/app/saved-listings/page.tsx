@@ -14,7 +14,7 @@ const SavedListings: FC = () => {
         return;
       }
       const response = await fetch(
-        "https://api.iwantityougotit.com/api/listings/fetchSavedListings",
+        `${process.env.NEXT_PUBLIC_API}/api/listings/fetchSavedListings`,
         {
           method: "GET",
           mode: "cors",

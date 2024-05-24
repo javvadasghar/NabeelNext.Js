@@ -54,7 +54,7 @@ const Home: FC = () => {
   const fetchAds = async () => {
     try {
       const response = await axios.get(
-        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/fetchAllAds`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const Home: FC = () => {
     }
     try {
       const response = await axios.get(
-        "https://api.iwantityougotit.com/api/user/fetchUserDetails",
+        `${process.env.NEXT_PUBLIC_API}/api/user/fetchUserDetails",
         {
           method: "GET",
           headers: {

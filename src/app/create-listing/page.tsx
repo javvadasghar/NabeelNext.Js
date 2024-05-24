@@ -44,7 +44,7 @@ const CreateListing: FC = () => {
         formData.append("featuredImage", pdfImage);
       }
       const response = await axios.post(
-        "https://api.iwantityougotit.com/api/listings/createlisting",
+        `${process.env.NEXT_PUBLIC_API}/api/listings/createlisting`,
         formData,
         {
           headers: {

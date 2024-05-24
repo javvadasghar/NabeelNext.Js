@@ -30,7 +30,7 @@ const AllUsers: FC = () => {
   const fetchAllUsers = async () => {
     try {
       const response = await axios.get(
-        "https://api.iwantityougotit.com/api/admin/fetchAllUsers",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/fetchAllUsers`,
         {
           method: "GET",
           headers: {
@@ -90,7 +90,7 @@ const AllUsers: FC = () => {
   const sendWarningEmail = async (receiverEmail: string, username: string) => {
     try {
       const response = await axios.post(
-        "https://api.iwantityougotit.com/api/mailer/sendWarningEmail",
+        `${process.env.NEXT_PUBLIC_API}/api/mailer/sendWarningEmail",
         {
           recieverEmail: receiverEmail,
           username: username,

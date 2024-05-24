@@ -48,7 +48,7 @@ const TopNav: FC = () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/fetchAllAds`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -90,7 +90,7 @@ const TopNav: FC = () => {
         return;
       }
       const response = await fetch(
-        "https://api.iwantityougotit.com/api/auth/logout",
+        `${process.env.NEXT_PUBLIC_API}/api/auth/logout",
         {
           method: "POST",
           mode: "cors",
