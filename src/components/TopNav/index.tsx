@@ -117,7 +117,7 @@ const TopNav: FC = () => {
       />
 
       <div className="flex flex-1 flex-col items-end justify-between">
-        <nav className="flex bg-dark gap-12 items-center pt-4 pl-6 pr-12">
+        <nav className="flex gap-12 items-center pt-4 pl-6 pr-12">
           {admin.role == "admin" ? (
             <>
               <Link href="/" className="italic font-bold">

@@ -354,6 +354,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
         },
       });
       toast.success("Image deleted successfully");
+      window.location.href = "/all-listings";
       // You may need to refresh the page or update the UI accordingly
     } catch (error) {
       console.error("Error deleting image:", error);
@@ -402,7 +403,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
             <label className="text-bright-green italic text-[24px]">
               Photo
             </label>
-            <Image src={featuredImage} alt="listing" width={100} height={180} />
+            <Image src={featuredImage} alt="No Image" width={100} height={180} />
           </div>
           {admin.role === "admin" ? (
             <div className="flex flex-col gap-4 items-center justify-center">

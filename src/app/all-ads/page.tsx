@@ -23,7 +23,9 @@ const AllAds: FC = () => {
   }, []);
 
   const fetchAds = async () => {
+    debugger;
     try {
+      const accessToken = localStorage.getItem("accessToken");
       const response = await axios.get(
         "https://api.iwantityougotit.com/api/admin/fetchAllAds",
         {
@@ -33,6 +35,7 @@ const AllAds: FC = () => {
         }
       );
       if (response.status === 200) {
+        debugger;
         const fetchedAds: Ad[] = response.data.data;
         const newAdImages = [...adImages];
         fetchedAds.forEach((ad) => {
