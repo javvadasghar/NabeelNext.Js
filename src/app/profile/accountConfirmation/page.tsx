@@ -18,7 +18,7 @@ const AccountConfirmation: FC = () => {
 
   const handleVerification = async () => {
     let gettoken = urlParams.get("token");
-    const ResetPasswordPostApi = `https://api.iwantityougotit.com/api/auth/verifyUser/${gettoken}`;
+    const ResetPasswordPostApi = `${process.env.NEXT_PUBLIC_API}/api/auth/verifyUser/${gettoken}`;
     try {
       const response = await fetch(ResetPasswordPostApi, {
         method: "GET",

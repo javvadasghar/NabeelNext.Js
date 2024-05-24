@@ -46,9 +46,9 @@ const Search: FC = () => {
         });
     } else {
       if (selectedCategory) {
-        apiUrl = `https://api.iwantityougotit.com/api/listings/searchByCategory/${selectedCategory}`;
+        apiUrl = `${process.env.NEXT_PUBLIC_API}/api/listings/searchByCategory/${selectedCategory}`;
       } else if (keyword) {
-        apiUrl = `https://api.iwantityougotit.com/api/listings/searchByListing/${keyword}`;
+        apiUrl = `${process.env.NEXT_PUBLIC_API}/api/listings/searchByListing/${keyword}`;
       } else {
         return;
       }

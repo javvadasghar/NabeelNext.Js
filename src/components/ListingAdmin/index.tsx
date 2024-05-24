@@ -86,7 +86,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       }
 
       const response = await axios.delete(
-        `https://api.iwantityougotit.com/api/listings/deleteListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/deleteListing/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -135,7 +135,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       }
 
       const response = await axios.patch(
-        `https://api.iwantityougotit.com/api/listings/updateListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/updateListing/${id}`,
         formData,
         {
           headers: {
@@ -238,7 +238,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       }
 
       const response = await axios.get(
-        `https://api.iwantityougotit.com/api/listings/fetchListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/fetchListing/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -268,7 +268,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
         formData.append(key, value);
       });
       const response = await axios.post(
-        `https://api.iwantityougotit.com/api/payments/CreateAndSendInvoice`,
+        `${process.env.NEXT_PUBLIC_API}/api/payments/CreateAndSendInvoice`,
         formData,
         {
           headers: {
@@ -320,9 +320,9 @@ const ListingAdmin: FC<ListingAdminProps> = ({
     const checkAdmin = admin.role;
     let api = "";
     if (checkAdmin && checkAdmin === "admin") {
-      api = `https://api.iwantityougotit.com/api/admin/deleteListing/${id}`;
+      api = `${process.env.NEXT_PUBLIC_API}/api/admin/deleteListing/${id}`;
     } else {
-      api = `https://api.iwantityougotit.com/api/listings/deleteListing/${id}`;
+      api = `${process.env.NEXT_PUBLIC_API}/api/listings/deleteListing/${id}`;
     }
     try {
       await axios.delete(api, {
@@ -345,7 +345,7 @@ const ListingAdmin: FC<ListingAdminProps> = ({
       return;
     }
 
-    const api = `https://api.iwantityougotit.com/api/admin/deleteListingImage/${id}`;
+    const api = `${process.env.NEXT_PUBLIC_API}/api/admin/deleteListingImage/${id}`;
     try {
       await axios.delete(api, {
         headers: {

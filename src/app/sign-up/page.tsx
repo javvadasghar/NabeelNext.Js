@@ -56,7 +56,7 @@ const SignUp: FC = () => {
     const getEmail = localStorage.getItem("email");
     if (!getEmail) return;
     else {
-      const VerficationcodeSendApi = `https://api.iwantityougotit.com/api/auth/resendVerificationEmail/${getEmail}`;
+      const VerficationcodeSendApi = `${process.env.NEXT_PUBLIC_API}/api/auth/resendVerificationEmail/${getEmail}`;
 
       try {
         await axios.post(VerficationcodeSendApi, formData).then((response) => {

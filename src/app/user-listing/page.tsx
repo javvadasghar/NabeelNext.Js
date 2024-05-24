@@ -17,7 +17,7 @@ const UserListing: FC = () => {
         return;
       }
       const response = await fetch(
-        `https://api.iwantityougotit.com/api/listings/fetchListingByUserId/${userId}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/fetchListingByUserId/${userId}`,
         {
           method: "GET",
           mode: "cors",

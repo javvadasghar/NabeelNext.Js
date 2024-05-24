@@ -32,7 +32,7 @@ const Home: FC = () => {
 
     try {
       const response = await axios.get(
-        `https://api.iwantityougotit.com/api/listings/searchByCategory/${category}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/searchByCategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",

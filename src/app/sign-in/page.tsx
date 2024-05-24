@@ -16,17 +16,14 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
-    ;
-    console.log("env : " + process.env.REACT_APP_API_BASE_URL);
     e.preventDefault();
-;
     if (!username || !password) {
       setError("Please enter both username and password.");
       return;
     }
 
     const SignInPostApi =
-      "https://api.iwantityougotit.com/api/auth/signin";
+      `${process.env.NEXT_PUBLIC_API}/api/auth/signin`;
     try {
       const response = await fetch(SignInPostApi, {
         method: "POST",

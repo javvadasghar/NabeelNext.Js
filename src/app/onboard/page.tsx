@@ -29,7 +29,7 @@ const Onboard: FC = () => {
         return;
       }
       const response = await fetch(
-        `https://api.iwantityougotit.com/api/payments/initiateOnboarding/${paypalEmail}`,
+        `${process.env.NEXT_PUBLIC_API}/api/payments/initiateOnboarding/${paypalEmail}`,
         {
           method: "GET",
           mode: "cors",
@@ -57,7 +57,7 @@ const Onboard: FC = () => {
 
   const handleVerification = async () => {
     let gettoken = urlParams.get("token");
-    const ResetPasswordPostApi = `https://api.iwantityougotit.com/api/auth/verifyUser/${gettoken}`;
+    const ResetPasswordPostApi = `${process.env.NEXT_PUBLIC_API}/api/auth/verifyUser/${gettoken}`;
     try {
       const response = await fetch(ResetPasswordPostApi, {
         method: "GET",

@@ -19,7 +19,7 @@ const paypalConfirmation: FC = () => {
 
   const handleVerification = async () => {
     let gettoken = urlParams.get("token");
-    const VerifyUserApi = `https://api.iwantityougotit.com/api/payments/verifyUserPaypal/${gettoken}`;
+    const VerifyUserApi = `${process.env.NEXT_PUBLIC_API}/api/payments/verifyUserPaypal/${gettoken}`;
     try {
       const response = await fetch(VerifyUserApi, {
         method: "GET",

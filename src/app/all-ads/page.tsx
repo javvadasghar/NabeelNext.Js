@@ -101,7 +101,7 @@ const AllAds: FC = () => {
         return;
       }
       await axios.delete(
-        `https://api.iwantityougotit.com/api/admin/deleteAd/${adId}`,
+        `${process.env.NEXT_PUBLIC_API}/api/admin/deleteAd/${adId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,

@@ -82,7 +82,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.get(
-        `https://api.iwantityougotit.com/api/listings/fetchListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/fetchListing/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -128,7 +128,7 @@ const UserListing: FC<ListingProps> = ({
         formData.append(key, value);
       });
       const response = await axios.post(
-        `https://api.iwantityougotit.com/api/payments/CreateAndSendInvoice`,
+        `${process.env.NEXT_PUBLIC_API}/api/payments/CreateAndSendInvoice`,
         formData,
         {
           headers: {
@@ -218,7 +218,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.patch(
-        `https://api.iwantityougotit.com/api/listings/updateListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/updateListing/${id}`,
         formData,
         {
           headers: {
@@ -246,7 +246,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.delete(
-        `https://api.iwantityougotit.com/api/listings/deleteListing/${id}`,
+        `${process.env.NEXT_PUBLIC_API}/api/listings/deleteListing/${id}`,
         {
           headers: {
             "Content-Type": "application/json",

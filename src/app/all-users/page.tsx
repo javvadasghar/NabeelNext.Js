@@ -60,7 +60,7 @@ const AllUsers: FC = () => {
       }
 
       const response = await axios.get(
-        `https://api.iwantityougotit.com/api/admin/toggleUserAccount/${userId}`,
+        `${process.env.NEXT_PUBLIC_API}/api/admin/toggleUserAccount/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
