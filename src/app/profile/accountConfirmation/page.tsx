@@ -18,7 +18,7 @@ const AccountConfirmation: FC = () => {
 
   const handleVerification = async () => {
     let gettoken = urlParams.get("token");
-    const ResetPasswordPostApi = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/verifyUser/${gettoken}`;
+    const ResetPasswordPostApi = `https://api.iwantityougotit.com/api/auth/verifyUser/${gettoken}`;
     try {
       const response = await fetch(ResetPasswordPostApi, {
         method: "GET",

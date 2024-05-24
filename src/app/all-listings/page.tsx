@@ -19,10 +19,10 @@ const AllListings: FC = () => {
       let api = "";
       if (checkAdmin && checkAdmin === "admin") {
         api =
-          "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllListings";
+          "https://api.iwantityougotit.com/api/admin/fetchAllListings";
       } else {
         api =
-          "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchAllListings";
+          "https://api.iwantityougotit.com/api/listings/fetchAllListings";
       }
       const response = await fetch(api, {
         method: "GET",

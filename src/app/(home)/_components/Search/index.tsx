@@ -21,7 +21,7 @@ const Search: FC = () => {
     let apiUrl = "";
     if (selectedCategory && keyword) {
       apiUrl =
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchCategoryByTitle";
+        "https://api.iwantityougotit.com/api/listings/searchCategoryByTitle";
 
       fetch(apiUrl, {
         method: "POST",
@@ -46,9 +46,9 @@ const Search: FC = () => {
         });
     } else {
       if (selectedCategory) {
-        apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByCategory/${selectedCategory}`;
+        apiUrl = `https://api.iwantityougotit.com/api/listings/searchByCategory/${selectedCategory}`;
       } else if (keyword) {
-        apiUrl = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/searchByListing/${keyword}`;
+        apiUrl = `https://api.iwantityougotit.com/api/listings/searchByListing/${keyword}`;
       } else {
         return;
       }

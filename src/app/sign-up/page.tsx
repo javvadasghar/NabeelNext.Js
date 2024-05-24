@@ -34,7 +34,7 @@ const SignUp: FC = () => {
       return;
     }
     const SignUpPostApi =
-      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/signup";
+      "https://api.iwantityougotit.com/api/auth/signup";
 
     try {
       await axios.post(SignUpPostApi, formData).then((response) => {
@@ -56,7 +56,7 @@ const SignUp: FC = () => {
     const getEmail = localStorage.getItem("email");
     if (!getEmail) return;
     else {
-      const VerficationcodeSendApi = `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/resendVerificationEmail/${getEmail}`;
+      const VerficationcodeSendApi = `https://api.iwantityougotit.com/api/auth/resendVerificationEmail/${getEmail}`;
 
       try {
         await axios.post(VerficationcodeSendApi, formData).then((response) => {

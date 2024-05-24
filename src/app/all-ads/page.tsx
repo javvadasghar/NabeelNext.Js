@@ -3,7 +3,6 @@ import { FC, useState, useRef, useEffect } from "react";
 import axios from "axios";
 import Image from "next/image";
 import { toast } from "sonner";
-import isAuth from "@/components/auth/isAuth";
 
 // ADMIN PAGE
 
@@ -25,13 +24,8 @@ const AllAds: FC = () => {
 
   const fetchAds = async () => {
     try {
-      const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) {
-        console.error("Access token not found");
-        return;
-      }
       const response = await axios.get(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllAds",
+        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -81,7 +75,7 @@ const AllAds: FC = () => {
       formData.append("adImage", file);
       formData.append("adSpaceNumber", String(index + 1));
       const response = await axios.post(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/postAd",
+        "https://api.iwantityougotit.com/api/admin/postAd",
         formData,
         {
           headers: {
@@ -104,7 +98,7 @@ const AllAds: FC = () => {
         return;
       }
       await axios.delete(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/deleteAd/${adId}`,
+        `https://api.iwantityougotit.com/api/admin/deleteAd/${adId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -213,4 +207,4 @@ const AllAds: FC = () => {
   );
 };
 
-export default isAuth(AllAds);
+export default AllAds;

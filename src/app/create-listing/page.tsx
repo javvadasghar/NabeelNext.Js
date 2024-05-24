@@ -44,7 +44,7 @@ const CreateListing: FC = () => {
         formData.append("featuredImage", pdfImage);
       }
       const response = await axios.post(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/createlisting",
+        "https://api.iwantityougotit.com/api/listings/createlisting",
         formData,
         {
           headers: {

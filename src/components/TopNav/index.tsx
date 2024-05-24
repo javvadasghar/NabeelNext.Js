@@ -3,6 +3,8 @@ import Link from "next/link";
 import { FC, useEffect, useState } from "react";
 import AdSpace from "../../../src/app/(home)/_components/AdSpace/index";
 import axios from "axios";
+import { toast } from "sonner";
+import Onboard from "@/app/onboard/page";
 
 // let role = "client";
 
@@ -15,6 +17,7 @@ interface Ad {
 
 const TopNav: FC = () => {
   const [ads, setAds] = useState<Ad[]>([]);
+  const [error, setError] = useState("");
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
@@ -25,7 +28,7 @@ const TopNav: FC = () => {
   const [role, setRole] = useState("client");
   const userJSON = localStorage.getItem("User");
   let admin = {};
-  
+
   if (userJSON) {
     try {
       admin = JSON.parse(userJSON);
@@ -37,19 +40,19 @@ const TopNav: FC = () => {
     fetchAds();
   }, []);
 
+  const handleOnboardClick = async () => {
+    window.location.href = "/onboard";
+  };
+
   const fetchAds = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      if (!accessToken) {
-        console.error("Access token not found");
-        return;
-      }
       const response = await axios.get(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllAds",
+        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
+            // Authorization: `Bearer ${accessToken}`,
           },
         }
       );
@@ -79,7 +82,6 @@ const TopNav: FC = () => {
   const adsSpace2 = ads && ads.filter((ad) => ad.adSpaceNumber === 2);
 
   const handleLogout = async (e: React.FormEvent) => {
-    
     e.preventDefault();
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -88,7 +90,7 @@ const TopNav: FC = () => {
         return;
       }
       const response = await fetch(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/logout",
+        "https://api.iwantityougotit.com/api/auth/logout",
         {
           method: "POST",
           mode: "cors",
@@ -140,13 +142,25 @@ const TopNav: FC = () => {
               <Link href="/" className="italic font-bold">
                 Home
               </Link>
-              {/* <Link href="#" className="italic font-bold">
-                Back
+              <Link href="/profile" className="italic font-bold">
+                Profile
               </Link>
-              <Link href="#" className="italic font-bold">
+              <Link href="/categories" className="italic font-bold">
                 Categories
               </Link>
-              <Link href="#" className="italic font-bold">
+              {userJSON && userJSON?.data?.merchantEmail !== "" ? (
+                <div>User Onboarded</div>
+              ) : userJSON ? (
+                <button
+                  onClick={handleOnboardClick}
+                  className="bg-dark-green text-black rounded-[50%] px-[50px] py-[10px] font-bold text-[12px] italic"
+                >
+                  Onboard Now
+                </button>
+              ) : (
+                <div></div>
+              )}
+              {/* <Link href="#" className="italic font-bold">
                 Keyword Search
               </Link> */}
               {userJSON ? (

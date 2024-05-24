@@ -30,7 +30,7 @@ const AllUsers: FC = () => {
   const fetchAllUsers = async () => {
     try {
       const response = await axios.get(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllUsers",
+        "https://api.iwantityougotit.com/api/admin/fetchAllUsers",
         {
           method: "GET",
           headers: {
@@ -60,7 +60,7 @@ const AllUsers: FC = () => {
       }
 
       const response = await axios.get(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/toggleUserAccount/${userId}`,
+        `https://api.iwantityougotit.com/api/admin/toggleUserAccount/${userId}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -90,7 +90,7 @@ const AllUsers: FC = () => {
   const sendWarningEmail = async (receiverEmail: string, username: string) => {
     try {
       const response = await axios.post(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/mailer/sendWarningEmail",
+        "https://api.iwantityougotit.com/api/mailer/sendWarningEmail",
         {
           recieverEmail: receiverEmail,
           username: username,

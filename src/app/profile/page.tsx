@@ -31,7 +31,7 @@ const Profile: FC = () => {
       }
 
       const ChangePasswordPostApi =
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/updatePassword";
+        "https://api.iwantityougotit.com/api/auth/updatePassword";
       const response = await fetch(ChangePasswordPostApi, {
         method: "POST",
         mode: "cors",

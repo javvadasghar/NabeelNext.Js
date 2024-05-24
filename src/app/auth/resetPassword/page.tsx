@@ -27,7 +27,7 @@ const ResetPassword: FC = () => {
     }
 
     const ResetPasswordPostApi =
-      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/resetPassword";
+      "https://api.iwantityougotit.com/api/auth/resetPassword";
     try {
       const response = await fetch(ResetPasswordPostApi, {
         method: "POST",

@@ -16,20 +16,23 @@ interface Ad {
 
 const Home: FC = () => {
   const [ads, setAds] = useState<Ad[]>([]);
+  const [searchData, setSearchData] = useState([]);
   useEffect(() => {
     fetchUsersDetails();
     fetchAds();
   }, []);
 
-  const fetchAds = async () => {
+  const handleSearch = async (category: string) => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
       console.error("Access token not found");
       return;
     }
+    // Construct the API endpoint with the keyword as the listingTitle parameter
+
     try {
       const response = await axios.get(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/fetchAllAds",
+        `https://api.iwantityougotit.com/api/listings/searchByCategory/${category}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -37,9 +40,30 @@ const Home: FC = () => {
           },
         }
       );
-      
+
       if (response.status === 200) {
-        
+        setSearchData(response?.data?.data);
+        localStorage.setItem("data", JSON.stringify(response?.data?.data));
+        window.location.href = "/listings/search";
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+  const fetchAds = async () => {
+    try {
+      const response = await axios.get(
+        "https://api.iwantityougotit.com/api/admin/fetchAllAds",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            // Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
         setAds(response?.data?.data);
       }
     } catch (error) {
@@ -63,7 +87,7 @@ const Home: FC = () => {
     }
     try {
       const response = await axios.get(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/user/fetchUserDetails",
+        "https://api.iwantityougotit.com/api/user/fetchUserDetails",
         {
           method: "GET",
           headers: {
@@ -162,12 +186,13 @@ const Home: FC = () => {
       <div className="flex flex-col items-center mt-4">
         <div className="grid grid-cols-4 gap-y-4 gap-x-6">
           {categories.map((item) => (
-            <div
+            <button
+              onClick={() => handleSearch(item)}
               key={item}
               className="border-2 border-bright-green bg-black w-[220px] h-[70px] flex items-center justify-center text-center font-bold"
             >
               {item}
-            </div>
+            </button>
           ))}
         </div>
       </div>

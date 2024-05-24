@@ -16,15 +16,17 @@ const SignIn: FC = () => {
   const [email, setEmail] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
+    ;
+    console.log("env : " + process.env.REACT_APP_API_BASE_URL);
     e.preventDefault();
-
+;
     if (!username || !password) {
       setError("Please enter both username and password.");
       return;
     }
 
     const SignInPostApi =
-      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/signin";
+      "https://api.iwantityougotit.com/api/auth/signin";
     try {
       const response = await fetch(SignInPostApi, {
         method: "POST",
@@ -34,7 +36,7 @@ const SignIn: FC = () => {
         },
         body: JSON.stringify({ username, password }),
       });
-
+;
       if (!response.ok) {
         const responseData = await response.json();
         setError(responseData.message);
@@ -64,7 +66,7 @@ const SignIn: FC = () => {
     e.preventDefault();
     try {
       const response = await fetch(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/auth/forgotPassword",
+        "https://api.iwantityougotit.com/api/auth/forgotPassword",
         {
           method: "POST",
           mode: "cors",

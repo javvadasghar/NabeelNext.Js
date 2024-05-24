@@ -14,7 +14,7 @@ const SavedListings: FC = () => {
         return;
       }
       const response = await fetch(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchSavedListings",
+        "https://api.iwantityougotit.com/api/listings/fetchSavedListings",
         {
           method: "GET",
           mode: "cors",

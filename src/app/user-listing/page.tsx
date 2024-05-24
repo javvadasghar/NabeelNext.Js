@@ -17,7 +17,7 @@ const UserListing: FC = () => {
         return;
       }
       const response = await fetch(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchListingByUserId/${userId}`,
+        `https://api.iwantityougotit.com/api/listings/fetchListingByUserId/${userId}`,
         {
           method: "GET",
           mode: "cors",

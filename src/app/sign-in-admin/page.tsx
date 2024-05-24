@@ -18,7 +18,7 @@ const SignInAdmin: FC = () => {
     }
 
     const SignInPostApi =
-      "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/admin/signin";
+      "https://api.iwantityougotit.com/api/admin/signin";
     try {
       const response = await fetch(SignInPostApi, {
         method: "POST",

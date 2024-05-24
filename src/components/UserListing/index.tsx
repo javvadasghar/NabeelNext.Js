@@ -82,7 +82,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.get(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/fetchListing/${id}`,
+        `https://api.iwantityougotit.com/api/listings/fetchListing/${id}`,
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -128,7 +128,7 @@ const UserListing: FC<ListingProps> = ({
         formData.append(key, value);
       });
       const response = await axios.post(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/payments/CreateAndSendInvoice`,
+        `https://api.iwantityougotit.com/api/payments/CreateAndSendInvoice`,
         formData,
         {
           headers: {
@@ -175,7 +175,7 @@ const UserListing: FC<ListingProps> = ({
       // }
 
       const response = await axios.post(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/mailer/sendBlindEmail",
+        "https://api.iwantityougotit.com/api/mailer/sendBlindEmail",
         formData,
         {
           headers: {
@@ -218,7 +218,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.patch(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/updateListing/${id}`,
+        `https://api.iwantityougotit.com/api/listings/updateListing/${id}`,
         formData,
         {
           headers: {
@@ -246,7 +246,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.delete(
-        `http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/deleteListing/${id}`,
+        `https://api.iwantityougotit.com/api/listings/deleteListing/${id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -280,7 +280,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.post(
-        "http://iwiygi-dev-server-env.eba-tsczssg5.us-east-1.elasticbeanstalk.com/api/listings/saveListing",
+        "https://api.iwantityougotit.com/api/listings/saveListing",
         {
           listingId: id,
         },
