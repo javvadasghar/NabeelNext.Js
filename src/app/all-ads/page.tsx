@@ -78,7 +78,7 @@ const AllAds: FC = () => {
       formData.append("adImage", file);
       formData.append("adSpaceNumber", String(index + 1));
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/admin/postAd",
+        `${process.env.NEXT_PUBLIC_API}/api/admin/postAd`,
         formData,
         {
           headers: {

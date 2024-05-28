@@ -90,7 +90,7 @@ const AllUsers: FC = () => {
   const sendWarningEmail = async (receiverEmail: string, username: string) => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/mailer/sendWarningEmail",
+        `${process.env.NEXT_PUBLIC_API}/api/mailer/sendWarningEmail`,
         {
           recieverEmail: receiverEmail,
           username: username,
