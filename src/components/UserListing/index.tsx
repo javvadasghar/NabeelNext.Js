@@ -280,7 +280,7 @@ const UserListing: FC<ListingProps> = ({
       }
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API}/api/listings/saveListing",
+        `${process.env.NEXT_PUBLIC_API}/api/listings/saveListing`,
         {
           listingId: id,
         },
